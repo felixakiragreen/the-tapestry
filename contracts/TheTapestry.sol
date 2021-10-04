@@ -18,8 +18,10 @@ contract TheTapestry is ERC721 {
   function addThread(string memory _line) public {
     // require(_line.length > 0, "Line must be non-empty");
     // require(currentLine < tapestryLines.length, "Tapestry is full");
-    tapestryLines[currentLine] = _line;
+    
+    // start with line 1 
     currentLine++;
+    tapestryLines[currentLine] = _line;
   }
 
 }
