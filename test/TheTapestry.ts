@@ -20,20 +20,13 @@ describe("TheTapestry", () => {
     )) as TheTapestry__factory
     tapestry = await tapestryFactory.deploy()
     await tapestry.deployed()
-    const initialCount = await tapestry.getCount()
 
     // 3
-    expect(initialCount).to.eq(0)
     expect(tapestry.address).to.properAddress
   })
 
   // 4
   describe("count up", async () => {
-    it("should count up", async () => {
-      // await counter.countUp()
-      // let count = await counter.getCount()
-      // console.log("count--------", count)
-      // expect(count).to.eq(2)
-    })
+    it("should count up", async () => {})
   })
 })
