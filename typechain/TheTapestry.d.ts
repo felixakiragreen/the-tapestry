@@ -21,6 +21,7 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface TheTapestryInterface extends ethers.utils.Interface {
   functions: {
+    "addThread(string)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
@@ -31,10 +32,12 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     "setApprovalForAll(address,bool)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
+    "tapestryLines(uint256)": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: "addThread", values: [string]): string;
   encodeFunctionData(
     functionFragment: "approve",
     values: [string, BigNumberish]
@@ -67,6 +70,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "tapestryLines",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "tokenURI",
     values: [BigNumberish]
   ): string;
@@ -75,6 +82,7 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
 
+  decodeFunctionResult(functionFragment: "addThread", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
@@ -100,6 +108,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "tapestryLines",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
@@ -181,6 +193,11 @@ export class TheTapestry extends BaseContract {
   interface: TheTapestryInterface;
 
   functions: {
+    addThread(
+      _line: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -235,6 +252,11 @@ export class TheTapestry extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
 
+    tapestryLines(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     tokenURI(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -247,6 +269,11 @@ export class TheTapestry extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
+
+  addThread(
+    _line: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   approve(
     to: string,
@@ -299,6 +326,8 @@ export class TheTapestry extends BaseContract {
 
   symbol(overrides?: CallOverrides): Promise<string>;
 
+  tapestryLines(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
   tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   transferFrom(
@@ -309,6 +338,8 @@ export class TheTapestry extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    addThread(_line: string, overrides?: CallOverrides): Promise<void>;
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -359,6 +390,11 @@ export class TheTapestry extends BaseContract {
     ): Promise<boolean>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    tapestryLines(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
@@ -427,6 +463,11 @@ export class TheTapestry extends BaseContract {
   };
 
   estimateGas: {
+    addThread(
+      _line: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -481,6 +522,11 @@ export class TheTapestry extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
 
+    tapestryLines(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     tokenURI(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -495,6 +541,11 @@ export class TheTapestry extends BaseContract {
   };
 
   populateTransaction: {
+    addThread(
+      _line: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -551,6 +602,11 @@ export class TheTapestry extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tapestryLines(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     tokenURI(
       tokenId: BigNumberish,
