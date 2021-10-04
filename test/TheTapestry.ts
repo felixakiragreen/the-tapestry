@@ -29,6 +29,15 @@ describe("TheTapestry", () => {
   describe("weaving", async () => {
     it("anyone should be able to add a line to the tapestry", async () => {
       //
+      const line = "Hello, world!"
+
+      await tapestry.addThread(line)
+
+      const thread = await tapestry.tapestryLines(0)
+
+      console.log({ line, thread })
+
+      expect(thread).to.eq(line)
     })
 
     it("anyone CANT add more than 1 line to the tapestry", async () => {
