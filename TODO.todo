@@ -4,8 +4,9 @@ TO DO:
     package.json, directories, tests, etc.
   [ ] writing some test outlines
 
-  
-
+KURT:
+  [ ] Minimum character length
+  [ ] Limiting number of lines per address
 
 OTHER:
   [ ] ownable, multisig
