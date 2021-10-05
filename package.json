@@ -17,7 +17,8 @@
     "clean": "npx hardhat clean",
     "compile": "npx hardhat compile",
     "coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "buildAndTest": "npm run build && npm run test"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
