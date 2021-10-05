@@ -21,7 +21,6 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface TheTapestryInterface extends ethers.utils.Interface {
   functions: {
-    "addThread(string)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
@@ -35,9 +34,9 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     "tapestryLines(uint256)": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
+    "weave(string)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "addThread", values: [string]): string;
   encodeFunctionData(
     functionFragment: "approve",
     values: [string, BigNumberish]
@@ -81,8 +80,8 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     functionFragment: "transferFrom",
     values: [string, string, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "weave", values: [string]): string;
 
-  decodeFunctionResult(functionFragment: "addThread", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
@@ -117,6 +116,7 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     functionFragment: "transferFrom",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "weave", data: BytesLike): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
@@ -193,11 +193,6 @@ export class TheTapestry extends BaseContract {
   interface: TheTapestryInterface;
 
   functions: {
-    addThread(
-      _line: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -268,12 +263,12 @@ export class TheTapestry extends BaseContract {
       tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-  };
 
-  addThread(
-    _line: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+    weave(
+      _line: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+  };
 
   approve(
     to: string,
@@ -337,9 +332,12 @@ export class TheTapestry extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  callStatic: {
-    addThread(_line: string, overrides?: CallOverrides): Promise<void>;
+  weave(
+    _line: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
+  callStatic: {
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -404,6 +402,8 @@ export class TheTapestry extends BaseContract {
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    weave(_line: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -463,11 +463,6 @@ export class TheTapestry extends BaseContract {
   };
 
   estimateGas: {
-    addThread(
-      _line: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -538,14 +533,14 @@ export class TheTapestry extends BaseContract {
       tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    weave(
+      _line: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    addThread(
-      _line: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -617,6 +612,11 @@ export class TheTapestry extends BaseContract {
       from: string,
       to: string,
       tokenId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    weave(
+      _line: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
