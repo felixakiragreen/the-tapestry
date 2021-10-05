@@ -14,7 +14,10 @@ contract TheTapestry is ERC721 {
     // anyone should be able to add a line to the tapestry
     function weave(string memory _line) public {
         // require(_line.length > 0, "Line must be non-empty");
-        // require(currentLine < tapestryLines.length, "Tapestry is full");
+        require(
+            bytes(_line).length < 101,
+            "Lines are limited to 100 characters"
+        );
 
         // start with line 1
         currentLine++;
