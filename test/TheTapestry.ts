@@ -69,8 +69,11 @@ describe("TheTapestry", () => {
     // })
 
     describe("content constraints", async () => {
-      it("lines are limited to 16 words", async () => {
+      it("Lines are limited to 100 characters", async () => {
         // TODO: maybe characters makes more sense?
+
+        await expect(tapestry.weave("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt consectetur consectetur")).to.be.revertedWith("Lines are limited to 100 characters");
+
         // is this valid?
         // "a b c d e f g h i j k"
         // "thisisaverylongnotwords but now we think itisaword"
