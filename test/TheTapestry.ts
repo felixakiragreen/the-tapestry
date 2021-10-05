@@ -2,17 +2,20 @@ import { ethers } from "hardhat"
 import chai from "chai"
 import chaiAsPromised from "chai-as-promised"
 import { TheTapestry__factory, TheTapestry } from "../typechain"
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
 chai.use(chaiAsPromised)
 const { expect } = chai
 
 describe("TheTapestry", () => {
   let tapestry: TheTapestry
+  let deployer: SignerWithAddress;
+
 
   beforeEach(async () => {
     // 1
     const signers = await ethers.getSigners()
-
+    deployer = signers[0];
     // 2
     const tapestryFactory = (await ethers.getContractFactory(
       "TheTapestry",
@@ -33,19 +36,27 @@ describe("TheTapestry", () => {
 
       // ADD the first line
 
-      await tapestry.addThread(lineToAdd)
+      await tapestry.weave(lineToAdd)
 
       // GET the first line
 
       const addedLine = await tapestry.tapestryLines(1)
 
       // CHECK that the first line is correct
-
       expect(addedLine).to.eq(lineToAdd)
+
+      // CHECK to see that balance indicates line NFT has been minted
+      const balance = await tapestry.balanceOf(deployer.address);
+      expect(balance).to.eq(1);
     })
 
     it("anyone CANT add more than 1 line to the tapestry", async () => {
       // TODO: confirm whether this is per tapestry or chapter
+    })
+
+    it("should mint an NFT when a line is successfully added", async () => {
+      // const balance = await tapestry.balanceOf(deployer.address);
+      // expect(balance).to.eq(1);
     })
 
     // chaptering
@@ -69,5 +80,7 @@ describe("TheTapestry", () => {
         //
       })
     })
+
+
   })
 })
