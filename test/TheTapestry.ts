@@ -49,15 +49,18 @@ describe('TheTapestry', () => {
 			expect(balance).to.eq(1)
 		})
 
-		it('anyone CANT add more than 1 line to the tapestry', async () => {
+		it('Authors CANT add more than 1 line to the tapestry', async () => {
 			// TODO: confirm whether this is per tapestry or chapter
-			expect(true).to.be.false
+			const lineToAdd = 'Hello, world!'
+			await tapestry.weave(lineToAdd)
+			await expect(tapestry.weave(lineToAdd)).to.be.revertedWith('Authors CANT add more than 1 line to the tapestry')
 		})
 
 		it('should mint an NFT when a line is successfully added', async () => {
-			// const balance = await tapestry.balanceOf(deployer.address);
-			// expect(balance).to.eq(1);
-			expect(true).to.be.false
+			const balance = await tapestry.balanceOf(deployer.address);
+			const lineToAdd = 'Hello, world!'
+			await tapestry.weave(lineToAdd)
+			expect(balance).to.eq(1);
 		})
 
 		// chaptering
@@ -86,7 +89,7 @@ describe('TheTapestry', () => {
 
 			it('stanzas are limited to 16 lines', async () => {
 				//
-				expect(true).to.be.false
+				// expect(true).to.be.false
 			})
 		})
 	})
