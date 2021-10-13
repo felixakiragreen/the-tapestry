@@ -15,12 +15,43 @@ import 'hardhat/console.sol';
 
 contract TheTapestry is ERC721 {
 	uint256 currentLine;
+	// key: line number => val: actual line (string)
 	mapping(uint256 => string) public tapestryLines;
 
 	// address and unint
 	mapping(address => uint256 ) linesPerAddress;
 
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
+
+	function readChapter(uint chapterIndex) public view returns( string[16] memory chapter) {
+		
+		for (uint i; i < 16; i++){
+		// do math
+		// +1 because lines start at 1
+			uint j = i + 1 + chapterIndex * 16;
+		// assemble/return array of strings
+		// access current lines in tapestry
+			chapter[i] = tapestryLines[j];
+		}
+	}
+
+	function readChapter2(uint chapterIndex) public view returns (string memory) {
+		string memory chapter;
+
+		for (uint i; i < 16; i++){
+		// do math
+		// +1 because lines start at 1
+			uint j = i + 1 + chapterIndex * 16;
+		// assemble/return array of strings
+		// access current lines in tapestry
+
+			// THIS SHOULD WORK
+			// chapter += tapestryLines[j];
+			chapter = string(abi.encodePacked(bytes(chapter), bytes("\n"), bytes(tapestryLines[j])));
+		}
+
+		return chapter;
+	}
 
 	// anyone should be able to add a line to the tapestry
 	function weave(string memory _line) public {

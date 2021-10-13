@@ -27,6 +27,8 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     "isApprovedForAll(address,address)": FunctionFragment;
     "name()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
+    "readChapter(uint256)": FunctionFragment;
+    "readChapter2(uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
@@ -53,6 +55,14 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "ownerOf",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "readChapter",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "readChapter2",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -94,6 +104,14 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "readChapter",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "readChapter2",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom",
     data: BytesLike
@@ -219,6 +237,56 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    readChapter(
+      chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        [
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string
+        ]
+      ] & {
+        chapter: [
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string,
+          string
+        ];
+      }
+    >;
+
+    readChapter2(
+      chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     "safeTransferFrom(address,address,uint256)"(
       from: string,
       to: string,
@@ -293,6 +361,35 @@ export class TheTapestry extends BaseContract {
 
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
+  readChapter(
+    chapterIndex: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string
+    ]
+  >;
+
+  readChapter2(
+    chapterIndex: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   "safeTransferFrom(address,address,uint256)"(
     from: string,
     to: string,
@@ -360,6 +457,35 @@ export class TheTapestry extends BaseContract {
     name(overrides?: CallOverrides): Promise<string>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+    readChapter(
+      chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string,
+        string
+      ]
+    >;
+
+    readChapter2(
+      chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: string,
@@ -489,6 +615,16 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    readChapter(
+      chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    readChapter2(
+      chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     "safeTransferFrom(address,address,uint256)"(
       from: string,
       to: string,
@@ -567,6 +703,16 @@ export class TheTapestry extends BaseContract {
 
     ownerOf(
       tokenId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    readChapter(
+      chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    readChapter2(
+      chapterIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

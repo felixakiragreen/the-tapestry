@@ -76,15 +76,6 @@ describe('TheTapestry', () => {
 			expect(balance1).to.eq(1)
 		})
 
-		// chaptering
-
-		// describe('chapters', async () => {
-		//   //
-		// })
-		// describe('lines', async () => {
-		//
-		// })
-
 		describe('content constraints', async () => {
 			it('Lines are limited to 100 characters', async () => {
 				// TODO: maybe characters makes more sense?
@@ -105,5 +96,28 @@ describe('TheTapestry', () => {
 				expect(true).to.be.false
 			})
 		})
+	})
+
+	// 5
+	describe('ordering', async () => {
+		// chaptering
+		describe('chapters', async () => {
+			it('user should be able to get the lines in a chapter', async () => {
+				await tapestry.weave('lineToAdd')
+				await tapestry.weave('lineToAdd8')
+				await tapestry.weave('lineToAdd90')
+				await tapestry.weave('lineToAdd908')
+
+				const chapter0 = await tapestry.readChapter(0)
+				console.log(chapter0)
+
+				const chapter0b = await tapestry.readChapter2(0)
+				console.log(chapter0b)
+			})
+		})
+
+		// describe('lines', async () => {
+		//
+		// })
 	})
 })
