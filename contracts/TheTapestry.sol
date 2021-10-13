@@ -5,6 +5,14 @@ import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 
 import 'hardhat/console.sol';
 
+/*
+
+1 line = <100 character
+4 lines = 1 stanza
+4 stanza = 1 chapter = 16 lines
+
+*/
+
 contract TheTapestry is ERC721 {
 	uint256 currentLine;
 	mapping(uint256 => string) public tapestryLines;
