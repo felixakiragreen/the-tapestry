@@ -57,10 +57,12 @@ describe('TheTapestry', () => {
 		})
 
 		it('should mint an NFT when a line is successfully added', async () => {
-			const balance = await tapestry.balanceOf(deployer.address);
+			const balance0 = await tapestry.balanceOf(deployer.address);
+			expect(balance0).to.eq(0);
 			const lineToAdd = 'Hello, world!'
 			await tapestry.weave(lineToAdd)
-			expect(balance).to.eq(1);
+			const balance1 = await tapestry.balanceOf(deployer.address);
+			expect(balance1).to.eq(1);
 		})
 
 		// chaptering
