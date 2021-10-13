@@ -29,10 +29,9 @@ describe('TheTapestry', () => {
 
 	// 4
 	describe('weaving', async () => {
-		it('anyone should be able to add a line to the tapestry', async () => {
-			//
-			const lineToAdd = 'Hello, world!'
+		const lineToAdd = 'Hello, world!'
 
+		it('anyone should be able to add a line to the tapestry', async () => {
 			// ADD the first line
 
 			await tapestry.weave(lineToAdd)
@@ -51,7 +50,6 @@ describe('TheTapestry', () => {
 
 		it('Authors CANT add more than 1 line to the tapestry', async () => {
 			// TODO: confirm whether this is per tapestry or chapter
-			const lineToAdd = 'Hello, world!'
 			await tapestry.weave(lineToAdd)
 			await expect(tapestry.weave(lineToAdd)).to.be.revertedWith('Authors CANT add more than 1 line to the tapestry')
 		})
@@ -59,7 +57,6 @@ describe('TheTapestry', () => {
 		it('should mint an NFT when a line is successfully added', async () => {
 			const balance0 = await tapestry.balanceOf(deployer.address);
 			expect(balance0).to.eq(0);
-			const lineToAdd = 'Hello, world!'
 			await tapestry.weave(lineToAdd)
 			const balance1 = await tapestry.balanceOf(deployer.address);
 			expect(balance1).to.eq(1);
@@ -71,7 +68,7 @@ describe('TheTapestry', () => {
 		//   //
 		// })
 		// describe('lines', async () => {
-		//   //
+		//   
 		// })
 
 		describe('content constraints', async () => {
@@ -91,7 +88,7 @@ describe('TheTapestry', () => {
 
 			it('stanzas are limited to 16 lines', async () => {
 				//
-				// expect(true).to.be.false
+				expect(true).to.be.false
 			})
 		})
 	})
