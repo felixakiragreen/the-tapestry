@@ -48,13 +48,25 @@ describe('TheTapestry', () => {
 			expect(balance).to.eq(1)
 		})
 
-		it('Authors CANT add more than 1 line to the tapestry', async () => {
+		it('Authors CANT add more than 4 lines in total to the tapestry', async () => {
 			// TODO: confirm whether this is per tapestry or chapter
+
+			await tapestry.weave(lineToAdd)
+			await tapestry.weave(lineToAdd)
+			await tapestry.weave(lineToAdd)
 			await tapestry.weave(lineToAdd)
 			await expect(tapestry.weave(lineToAdd)).to.be.revertedWith(
-				'Authors CANT add more than 1 line to the tapestry',
+				'Authors CANT add more than 4 lines in total to the tapestry',
 			)
 		})
+
+		// it('Authors CANT add more than 1 line per chapter', async () => {
+		// 	// TODO: confirm whether this is per tapestry or chapter
+		// 	await tapestry.weave(lineToAdd)
+		// 	await expect(tapestry.weave(lineToAdd)).to.be.revertedWith(
+		// 		'Authors CANT add more than 1 line per chapter',
+		// 	)
+		// })
 
 		it('should mint an NFT when a line is successfully added', async () => {
 			const balance0 = await tapestry.balanceOf(deployer.address)

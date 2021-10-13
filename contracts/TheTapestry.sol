@@ -17,6 +17,9 @@ contract TheTapestry is ERC721 {
 	uint256 currentLine;
 	mapping(uint256 => string) public tapestryLines;
 
+	// address and unint
+	mapping(address => uint256 ) linesPerAddress;
+
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
 
 	// anyone should be able to add a line to the tapestry
@@ -27,15 +30,18 @@ contract TheTapestry is ERC721 {
 			'Lines are limited to 100 characters'
 		);
 
-		// require number of lines in author wallet to be less than 1
+		// ensure author hasn't exceeded line limit
 		require(
-			balanceOf(msg.sender) < 1,
-			'Authors CANT add more than 1 line to the tapestry'
+			linesPerAddress[msg.sender] < 4,
+			'Authors CANT add more than 4 lines in total to the tapestry'
 		);
 
 		// start with line 1
 		currentLine++;
 		tapestryLines[currentLine] = _line;
+
+		// increment linesPerAddress every time NFT mints
+		linesPerAddress[msg.sender]++;
 
 		_safeMint(msg.sender, currentLine);
 	}
