@@ -1,12 +1,16 @@
+TODAY:
+  [ ] update the lines per address constraints
+  [ ] add getting stanzas & chapters 
+
+
 TO DO:
   [x] set up repo
   [x] copy + pasting all the basics
     package.json, directories, tests, etc.
-  [ ] writing some test outlines
 
 KURT:
-  [ ] Minimum character length
-  [ ] Limiting number of lines per address
+  [x] Minimum character length
+  [x] Limiting number of lines per address
 
 OTHER:
   [ ] ownable, multisig
