@@ -1,7 +1,7 @@
 TODAY:
   [ ] update the lines per address constraints
-  [ ] add getting stanzas & chapters 
-
+  [ ] add getting stanzas & chapters
+  [ ] replace `balanceOf` with new system
 
 TO DO:
   [x] set up repo
