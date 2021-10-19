@@ -1,7 +1,7 @@
 TODAY:
   [x] update the lines per address constraints
   [x] add getting chapters
-  [ ] add getting stanzas & chapters
+  [ ] add getting stanzas
   [ ] limit author to one line per chapter
   [x] replace `balanceOf` with new system
 
@@ -20,3 +20,4 @@ KURT:
 
 OTHER:
   [ ] ownable, multisig
+  [ ] adding chapter titles
