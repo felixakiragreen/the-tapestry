@@ -91,10 +91,10 @@ describe('TheTapestry', () => {
 				// "thisisaverylongnotwords but now we think itisaword"
 			})
 
-			it('stanzas are limited to 16 lines', async () => {
-				//
-				expect(true).to.be.false
-			})
+			// it('stanzas are limited to 4 lines', async () => {
+			// 	//
+			// 	expect(true).to.be.false
+			// })
 		})
 	})
 
@@ -108,11 +108,29 @@ describe('TheTapestry', () => {
 				await tapestry.weave('lineToAdd90')
 				await tapestry.weave('lineToAdd908')
 
-				const chapter0 = await tapestry.readChapter(0)
-				console.log(chapter0)
+				// const chapter0 = await tapestry.readChapter(0)
+				// console.log(chapter0)
 
 				const chapter0b = await tapestry.readChapter2(0)
 				console.log(chapter0b)
+			})
+		})
+
+		// Stanzas
+		describe('stanzas', async () => {
+			it('user should be able to get the lines in a stanza', async () => {
+				//
+				// expect(true).to.be.false
+
+				await tapestry.weave(
+					'There is an inn, a merry old inn beneath an old grey hill',
+				)
+				await tapestry.weave('And there they brew a beer so brown')
+				await tapestry.weave('That the Man in the Moon himself came down')
+				await tapestry.weave('One night to drink his fill.')
+
+				const stanza0 = await tapestry.readStanza(0)
+				console.log(stanza0)
 			})
 		})
 

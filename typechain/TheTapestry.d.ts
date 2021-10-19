@@ -27,8 +27,8 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     "isApprovedForAll(address,address)": FunctionFragment;
     "name()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
-    "readChapter(uint256)": FunctionFragment;
     "readChapter2(uint256)": FunctionFragment;
+    "readStanza(uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
@@ -58,11 +58,11 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "readChapter",
+    functionFragment: "readChapter2",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "readChapter2",
+    functionFragment: "readStanza",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -105,13 +105,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "readChapter",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "readChapter2",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "readStanza", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom",
     data: BytesLike
@@ -237,53 +234,13 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    readChapter(
-      chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<
-      [
-        [
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string
-        ]
-      ] & {
-        chapter: [
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-          string
-        ];
-      }
-    >;
-
     readChapter2(
       chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    readStanza(
+      stanzaIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -361,32 +318,13 @@ export class TheTapestry extends BaseContract {
 
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  readChapter(
-    chapterIndex: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<
-    [
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string
-    ]
-  >;
-
   readChapter2(
     chapterIndex: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  readStanza(
+    stanzaIndex: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -458,32 +396,13 @@ export class TheTapestry extends BaseContract {
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    readChapter(
-      chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<
-      [
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string,
-        string
-      ]
-    >;
-
     readChapter2(
       chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    readStanza(
+      stanzaIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -615,13 +534,13 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    readChapter(
+    readChapter2(
       chapterIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    readChapter2(
-      chapterIndex: BigNumberish,
+    readStanza(
+      stanzaIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -706,13 +625,13 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    readChapter(
+    readChapter2(
       chapterIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    readChapter2(
-      chapterIndex: BigNumberish,
+    readStanza(
+      stanzaIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

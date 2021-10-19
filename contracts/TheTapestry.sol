@@ -23,17 +23,17 @@ contract TheTapestry is ERC721 {
 
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
 
-	function readChapter(uint chapterIndex) public view returns( string[16] memory chapter) {
+	// function readChapter(uint chapterIndex) public view returns( string[16] memory chapter) {
 		
-		for (uint i; i < 16; i++){
-		// do math
-		// +1 because lines start at 1
-			uint j = i + 1 + chapterIndex * 16;
-		// assemble/return array of strings
-		// access current lines in tapestry
-			chapter[i] = tapestryLines[j];
-		}
-	}
+	// 	for (uint i; i < 16; i++){
+	// 	// do math
+	// 	// +1 because lines start at 1
+	// 		uint j = i + 1 + chapterIndex * 16;
+	// 	// assemble/return array of strings
+	// 	// access current lines in tapestry
+	// 		chapter[i] = tapestryLines[j];
+	// 	}
+	// }
 
 	function readChapter2(uint chapterIndex) public view returns (string memory) {
 		string memory chapter;
@@ -49,8 +49,18 @@ contract TheTapestry is ERC721 {
 			// chapter += tapestryLines[j];
 			chapter = string(abi.encodePacked(bytes(chapter), bytes("\n"), bytes(tapestryLines[j])));
 		}
-
 		return chapter;
+	}
+
+	function readStanza (uint stanzaIndex) public view returns (string memory) {
+		string memory stanza;
+
+		for (uint i; i < 5; i++){
+			uint k = i + 1 + stanzaIndex * 4;
+
+			stanza = string(abi.encodePacked(bytes(stanza), bytes("\n"), bytes(tapestryLines[k])));
+		}
+		return stanza;
 	}
 
 	// anyone should be able to add a line to the tapestry
