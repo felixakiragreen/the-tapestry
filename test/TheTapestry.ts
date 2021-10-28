@@ -49,10 +49,10 @@ describe('TheTapestry', () => {
 		it('Authors CANT add more than 4 lines in total to the tapestry', async () => {
 			// TODO: confirm whether this is per tapestry or chapter
 
-			await tapestry.weave(TOLKIEN.split('\n')[0])
-			await tapestry.weave(TOLKIEN.split('\n')[1])
-			await tapestry.weave(TOLKIEN.split('\n')[2])
-			await tapestry.weave(TOLKIEN.split('\n')[3])
+			for (let i = 0; i < 4; i++) {
+				await tapestry.weave(TOLKIEN.split('\n')[i])
+			}
+
 			await expect(tapestry.weave(TOLKIEN.split('\n')[4])).to.be.revertedWith(
 				'Authors CANT add more than 4 lines in total to the tapestry',
 			)
@@ -97,10 +97,9 @@ describe('TheTapestry', () => {
 		// chaptering
 		describe('chapters', async () => {
 			it('user should be able to get the lines in a chapter', async () => {
-				await tapestry.weave(TOLKIEN.split('\n')[0])
-				await tapestry.weave(TOLKIEN.split('\n')[1])
-				await tapestry.weave(TOLKIEN.split('\n')[2])
-				await tapestry.weave(TOLKIEN.split('\n')[3])
+				for (let i = 0; i < 4; i++) {
+					await tapestry.weave(TOLKIEN.split('\n')[i])
+				}
 
 				// const chapter0 = await tapestry.readChapter(0)
 				// console.log(chapter0)
@@ -113,10 +112,9 @@ describe('TheTapestry', () => {
 		// Stanzas
 		describe('stanzas', async () => {
 			it('user should be able to get the lines in a stanza', async () => {
-				await tapestry.weave(TOLKIEN.split('\n')[0])
-				await tapestry.weave(TOLKIEN.split('\n')[1])
-				await tapestry.weave(TOLKIEN.split('\n')[2])
-				await tapestry.weave(TOLKIEN.split('\n')[3])
+				for (let i = 0; i < 4; i++) {
+					await tapestry.weave(TOLKIEN.split('\n')[i])
+				}
 
 				const stanza0 = await tapestry.readStanza(0)
 				console.log(stanza0)
