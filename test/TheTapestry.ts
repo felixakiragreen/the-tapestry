@@ -35,14 +35,14 @@ describe('TheTapestry', () => {
 		it('anyone should be able to add a line to the tapestry', async () => {
 			// ADD the first line
 
-			await tapestry.weave(tolkien.split(',')[0])
+			await tapestry.weave(tolkien.split('.')[0])
 
 			// GET the first line
 
 			const addedLine = await tapestry.tapestryLines(1)
 
 			// CHECK that the first line is correct
-			expect(addedLine).to.eq(tolkien.split(',')[0])
+			expect(addedLine).to.eq(tolkien.split('.')[0])
 
 			// CHECK to see that balance indicates line NFT has been minted
 			const balance = await tapestry.balanceOf(deployer.address)
