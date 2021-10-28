@@ -118,6 +118,12 @@ describe('TheTapestry', () => {
 
 				const chapter0b = await tapestry.readChapter2(0)
 				console.log(chapter0b)
+
+				// TODO: move this section out into own test
+				const linesForSigner1 = await tapestry.linesByWeaver(
+					accounts[1].address,
+				)
+				console.log(linesForSigner1.map((bigNumber) => bigNumber.toNumber()))
 			})
 		})
 
