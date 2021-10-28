@@ -3,11 +3,10 @@ TODAY:
   [ ] call lines by weaver
   [ ] limit author to one line per chapter
 
-
 TO LEARN:
   [ ] parameter overload
-    [ ] by line
-    [ ] by line & chapter
+    [x] by line
+    [x] by line & chapter
     [ ] by weaver
 
 CHAPTER:
@@ -20,17 +19,19 @@ CHAPTER:
 NFT ART + METADATA:
   [ ]
 
+HOMEWORK:
+  [x] Do the readStanza function
+  [x] Tests with expects for both chapter and stanzas
+  [ ] add the expect for the readChapter
+  [ ] clean up readChapter2 / readChapter
+  FELIX:
+    [ ] figure out why "weaving" in previous describes isn't accessible
+
 LAST WEEK:
   [x] update the lines per address constraints
   [x] add getting chapters
   [x] add getting stanzas
   [x] replace `balanceOf` with new system
-
-HOMEWORK:
-  [x] Do the readStanza function
-  [x] Tests with expects for both chapter and stanzas
-  [ ] add the expect for the readChapter
-  [ ]
 
 TO DO:
   [x] set up repo
@@ -44,4 +45,3 @@ KURT:
 OTHER:
   [ ] ownable, multisig
   [ ] adding chapter titles
-  [ ] clean up readChapter2 / readChapter
