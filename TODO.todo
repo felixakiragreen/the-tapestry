@@ -3,6 +3,7 @@ TODAY:
   [ ] call lines by weaver
   [ ] limit author to one line per chapter
 
+
 TO LEARN:
   [ ] parameter overload
     [ ] by line
@@ -28,6 +29,8 @@ LAST WEEK:
 HOMEWORK:
   [x] Do the readStanza function
   [x] Tests with expects for both chapter and stanzas
+  [ ] add the expect for the readChapter
+  [ ]
 
 TO DO:
   [x] set up repo
@@ -41,3 +44,4 @@ KURT:
 OTHER:
   [ ] ownable, multisig
   [ ] adding chapter titles
+  [ ] clean up readChapter2 / readChapter
