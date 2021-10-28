@@ -10,15 +10,16 @@ const { expect } = chai
 describe('TheTapestry', () => {
 	let tapestry: TheTapestry
 	let deployer: SignerWithAddress
+	let accounts: SignerWithAddress[]
 
 	beforeEach(async () => {
 		// 1
-		const signers = await ethers.getSigners()
-		deployer = signers[0]
+		accounts = await ethers.getSigners()
+		deployer = accounts[0]
 		// 2
 		const tapestryFactory = (await ethers.getContractFactory(
 			'TheTapestry',
-			signers[0],
+			deployer,
 		)) as TheTapestry__factory
 		tapestry = await tapestryFactory.deploy()
 		await tapestry.deployed()
@@ -97,8 +98,19 @@ describe('TheTapestry', () => {
 		// chaptering
 		describe('chapters', async () => {
 			it('user should be able to get the lines in a chapter', async () => {
-				for (let i = 0; i < 4; i++) {
-					await tapestry.weave(TOLKIEN.split('\n')[i])
+				for (let i = 1; i < 5; i++) {
+					// i is the signer index
+					for (let j = 0; j < 4; j++) {
+						// j is the line index
+						const tapestryConnectedToOtherAccount = await tapestry.connect(
+							accounts[i],
+						)
+
+						const k = (i - 1) * 4 + j
+						console.log({ i, j, k })
+
+						await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[k])
+					}
 				}
 
 				// const chapter0 = await tapestry.readChapter(0)
@@ -127,21 +139,21 @@ describe('TheTapestry', () => {
 	})
 })
 
-const TOLKIEN = `There is an inn, a merry old inn, beneath an old grey hill.
-And there they brew a beer so brown.
-that the Man in the Moon himself came down.
-One night to drink his fill.
-The ostler has a tipsy cat that plays a five-stringed fiddle.
-And up and down he runs his bow.
-Now squeaking high, now purring low.
-Now sawing in the middle.
-The landlord keeps a little dog.
-that is mighty fond of jokes.
-When there's good cheer among the guests.
-He cocks an ear at all the jests and laughs until he chokes.
-They also keep a hornéd cow as proud as any queen.
-But music turns her head like ale.
-And makes her wave her tufted tail.
+const TOLKIEN = `1 There is an inn, a merry old inn, beneath an old grey hill.
+2 And there they brew a beer so brown.
+3 that the Man in the Moon himself came down.
+4 One night to drink his fill.
+5 The ostler has a tipsy cat that plays a five-stringed fiddle.
+6 And up and down he runs his bow.
+7 Now squeaking high, now purring low.
+8 Now sawing in the middle.
+9 The landlord keeps a little dog.
+10 that is mighty fond of jokes.
+11 When there's good cheer among the guests.
+12 He cocks an ear at all the jests and laughs until he chokes.
+13 They also keep a hornéd cow as proud as any queen.
+14 But music turns her head like ale.
+15 And makes her wave her tufted tail.
 and dance upon the green.
 And O! the rows of silver dishes.
 The store of silver spoons.
