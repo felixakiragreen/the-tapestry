@@ -66,6 +66,15 @@ contract TheTapestry is ERC721 {
 	function readLine(uint lineIndex) public view returns(string memory) {
 		return tapestryLines[lineIndex];
 	}
+	
+	function readLine(uint chapterIndex, uint lineIndex ) public view returns(string memory) {
+
+		// do math
+		// +1 because lines start at 1
+		uint adjustedLineIndex = lineIndex + chapterIndex * 16;
+		return tapestryLines[adjustedLineIndex];
+	}
+
 
 	// anyone should be able to add a line to the tapestry
 	function weave(string memory _line) public {

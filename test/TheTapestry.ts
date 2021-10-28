@@ -143,13 +143,29 @@ describe('TheTapestry', () => {
 
 		describe('lines', async () => {
 			it('user should be able to get the line by number', async () => {
-				await tapestry.weave(TOLKIEN.split('\n')[0])
-				const line = await tapestry.readLine(1)
+				// await tapestry.weave(TOLKIEN.split('\n')[0])
+
+				for (let i = 0; i < 4; i++) {
+					await tapestry.weave(TOLKIEN.split('\n')[i])
+				}
+
+				const line = await tapestry['readLine(uint256)'](1)
+
+				expect(line).to.eq(TOLKIEN.split('\n')[0])
+				// expect(line).to.eq(
+				// 	'1 There is an inn, a merry old inn, beneath an old grey hill.',
+				// )
+			})
+
+			it('user should be able to get the line by chapter and line number', async () => {
+				for (let i = 0; i < 4; i++) {
+					await tapestry.weave(TOLKIEN.split('\n')[i])
+				}
+
+				const line = await tapestry['readLine(uint256,uint256)'](0, 4)
 
 				// expect(line).to.eq(TOLKIEN.split('\n')[0])
-				expect(line).to.eq(
-					'1 There is an inn, a merry old inn, beneath an old grey hill.',
-				)
+				expect(line).to.eq('4 One night to drink his fill.')
 			})
 		})
 	})
@@ -170,7 +186,7 @@ const TOLKIEN = `1 There is an inn, a merry old inn, beneath an old grey hill.
 13 They also keep a hornéd cow as proud as any queen.
 14 But music turns her head like ale.
 15 And makes her wave her tufted tail.
-and dance upon the green.
+16 and dance upon the green.
 And O! the rows of silver dishes.
 The store of silver spoons.
 For Sunday there's a special pair.
