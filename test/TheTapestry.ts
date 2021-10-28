@@ -130,12 +130,28 @@ describe('TheTapestry', () => {
 
 				const stanza0 = await tapestry.readStanza(0)
 				console.log(stanza0)
+
+				// expect(stanza).to.eq(TOLKIEN.split('\n').slice(0, 4).join('\n'))
+				expect(stanza0).to.eq(`
+1 There is an inn, a merry old inn, beneath an old grey hill.
+2 And there they brew a beer so brown.
+3 that the Man in the Moon himself came down.
+4 One night to drink his fill.
+`)
 			})
 		})
 
-		// describe('lines', async () => {
-		//
-		// })
+		describe('lines', async () => {
+			it('user should be able to get the line by number', async () => {
+				await tapestry.weave(TOLKIEN.split('\n')[0])
+				const line = await tapestry.readLine(1)
+
+				// expect(line).to.eq(TOLKIEN.split('\n')[0])
+				expect(line).to.eq(
+					'1 There is an inn, a merry old inn, beneath an old grey hill.',
+				)
+			})
+		})
 	})
 })
 

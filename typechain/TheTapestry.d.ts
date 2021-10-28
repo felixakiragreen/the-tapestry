@@ -28,6 +28,7 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     "name()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
     "readChapter2(uint256)": FunctionFragment;
+    "readLine(uint256)": FunctionFragment;
     "readStanza(uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
@@ -59,6 +60,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "readChapter2",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "readLine",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -108,6 +113,7 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     functionFragment: "readChapter2",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "readLine", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "readStanza", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom",
@@ -239,6 +245,11 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    readLine(
+      lineIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     readStanza(
       stanzaIndex: BigNumberish,
       overrides?: CallOverrides
@@ -323,6 +334,8 @@ export class TheTapestry extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  readLine(lineIndex: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
   readStanza(
     stanzaIndex: BigNumberish,
     overrides?: CallOverrides
@@ -398,6 +411,11 @@ export class TheTapestry extends BaseContract {
 
     readChapter2(
       chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    readLine(
+      lineIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -539,6 +557,11 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    readLine(
+      lineIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     readStanza(
       stanzaIndex: BigNumberish,
       overrides?: CallOverrides
@@ -627,6 +650,11 @@ export class TheTapestry extends BaseContract {
 
     readChapter2(
       chapterIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    readLine(
+      lineIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
