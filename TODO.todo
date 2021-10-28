@@ -1,7 +1,7 @@
 TODAY:
-  [ ] limit author to one line per chapter
   [ ] call lines by number
   [ ] call lines by weaver
+  [ ] limit author to one line per chapter
 
 CHAPTER:
   [ ] minting
