@@ -1,7 +1,13 @@
 TODAY:
-  [ ] call lines by number
+  [x] call lines by number
   [ ] call lines by weaver
   [ ] limit author to one line per chapter
+
+TO LEARN:
+  [ ] parameter overload
+    [ ] by line
+    [ ] by line & chapter
+    [ ] by weaver
 
 CHAPTER:
   [ ] minting
