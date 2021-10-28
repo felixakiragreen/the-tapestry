@@ -2,6 +2,8 @@ TODAY:
   [x] call lines by number
   [ ] call lines by weaver
   [ ] limit author to one line per chapter
+  [ ] function takes `uint` lineNumber returns `address` weaver
+  [ ] function takes `address` weaver returns `uint[]` lines
 
 TO LEARN:
   [ ] parameter overload
@@ -9,11 +11,15 @@ TO LEARN:
     [x] by line & chapter
     [ ] by weaver
 
+QUESTIONS:
+  [ ] ARE the number of mints per chapter limited?
+  [ ] Call by lines (shows weaver)
+  [ ] Call by weaver (shows number) do these not call the lines?
+
 CHAPTER:
   [ ] minting
     [ ] FIRST only weaver can mint
-    [ ] THEN anyone can
-    [ ] ARE the number of mints per chapter limited?
+    [ ] THEN anyone can  
   [ ] titling
 
 NFT ART + METADATA:
