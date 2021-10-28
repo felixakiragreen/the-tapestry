@@ -1,13 +1,27 @@
 TODAY:
+  [ ] limit author to one line per chapter
+  [ ] call lines by number
+  [ ] call lines by weaver
+
+CHAPTER:
+  [ ] minting
+    [ ] FIRST only weaver can mint
+    [ ] THEN anyone can
+    [ ] ARE the number of mints per chapter limited?
+  [ ] titling
+
+NFT ART + METADATA:
+  [ ]
+
+LAST WEEK:
   [x] update the lines per address constraints
   [x] add getting chapters
-  [ ] add getting stanzas
-  [ ] limit author to one line per chapter
+  [x] add getting stanzas
   [x] replace `balanceOf` with new system
 
 HOMEWORK:
-  [ ] Do the readStanza function
-  [ ] Tests with expects for both chapter and stanzas
+  [x] Do the readStanza function
+  [x] Tests with expects for both chapter and stanzas
 
 TO DO:
   [x] set up repo
