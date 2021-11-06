@@ -29,7 +29,7 @@ LAST WEEK:
 HOMEWORK:
   [x] Do the readStanza function
   [x] Tests with expects for both chapter and stanzas
-  [ ] add the expect for the readChapter
+  [x] add the expect for the readChapter
   [ ]
 
 TO DO:

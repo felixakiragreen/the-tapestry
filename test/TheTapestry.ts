@@ -117,7 +117,25 @@ describe('TheTapestry', () => {
 				// console.log(chapter0)
 
 				const chapter0b = await tapestry.readChapter2(0)
-				console.log(chapter0b)
+				console.log('Chapter Log', chapter0b)
+
+				expect(chapter0b).to.eq(`
+1 There is an inn, a merry old inn, beneath an old grey hill.
+2 And there they brew a beer so brown.
+3 that the Man in the Moon himself came down.
+4 One night to drink his fill.
+5 The ostler has a tipsy cat that plays a five-stringed fiddle.
+6 And up and down he runs his bow.
+7 Now squeaking high, now purring low.
+8 Now sawing in the middle.
+9 The landlord keeps a little dog.
+10 that is mighty fond of jokes.
+11 When there's good cheer among the guests.
+12 He cocks an ear at all the jests and laughs until he chokes.
+13 They also keep a hornéd cow as proud as any queen.
+14 But music turns her head like ale.
+15 And makes her wave her tufted tail.
+16 and dance upon the green.`)
 			})
 		})
 
