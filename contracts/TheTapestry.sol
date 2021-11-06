@@ -28,7 +28,7 @@ contract TheTapestry is ERC721 {
 
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
 
-	function readChapter2(uint chapterIndex) public view returns (string memory) {
+	function readChapter(uint chapterIndex) public view returns (string memory) {
 		string memory chapter;
 
 		for (uint i; i < 16; i++){
