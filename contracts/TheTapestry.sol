@@ -19,7 +19,12 @@ contract TheTapestry is ERC721 {
 	mapping(uint256 => string) public tapestryLines;
 
 	// address and unint
-	mapping(address => uint256 ) linesPerAddress;
+	// TODO:: remove & replace functionality with addressLines
+	mapping(address => uint256) linesPerAddress;
+	
+	mapping(address => uint256[]) public addressLines;
+	
+	mapping(uint256 => address) weaverByLine;
 
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
 
@@ -52,7 +57,7 @@ contract TheTapestry is ERC721 {
 		return chapter;
 	}
 
-	function readStanza (uint stanzaIndex) public view returns (string memory) {
+	function readStanza(uint stanzaIndex) public view returns (string memory) {
 		string memory stanza;
 
 		for (uint i; i < 5; i++){
@@ -73,6 +78,10 @@ contract TheTapestry is ERC721 {
 		// +1 because lines start at 1
 		uint adjustedLineIndex = lineIndex + chapterIndex * 16;
 		return tapestryLines[adjustedLineIndex];
+	}
+	
+	function linesByWeaver(address weaver) public view returns (uint[] memory) {
+		return addressLines[weaver];
 	}
 
 
@@ -96,6 +105,12 @@ contract TheTapestry is ERC721 {
 
 		// increment linesPerAddress every time NFT mints
 		linesPerAddress[msg.sender]++;
+
+		// add line to addressLines
+		addressLines[msg.sender].push(currentLine);
+
+		// add to weaverByLine
+		weaverByLine[currentLine] = msg.sender;
 
 		_safeMint(msg.sender, currentLine);
 	}

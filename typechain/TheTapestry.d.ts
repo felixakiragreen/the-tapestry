@@ -21,10 +21,12 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface TheTapestryInterface extends ethers.utils.Interface {
   functions: {
+    "addressLines(address,uint256)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
+    "linesByWeaver(address)": FunctionFragment;
     "name()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
     "readChapter2(uint256)": FunctionFragment;
@@ -41,6 +43,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   };
 
   encodeFunctionData(
+    functionFragment: "addressLines",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "approve",
     values: [string, BigNumberish]
   ): string;
@@ -52,6 +58,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "linesByWeaver",
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
@@ -97,6 +107,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "weave", values: [string]): string;
 
+  decodeFunctionResult(
+    functionFragment: "addressLines",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
@@ -105,6 +119,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "linesByWeaver",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
@@ -214,6 +232,12 @@ export class TheTapestry extends BaseContract {
   interface: TheTapestryInterface;
 
   functions: {
+    addressLines(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -233,6 +257,11 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    linesByWeaver(
+      weaver: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
+
     name(overrides?: CallOverrides): Promise<[string]>;
 
     ownerOf(
@@ -248,6 +277,11 @@ export class TheTapestry extends BaseContract {
     "readLine(uint256,uint256)"(
       chapterIndex: BigNumberish,
       lineIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    "readLine(address)"(
+      weaver: string,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
@@ -312,6 +346,12 @@ export class TheTapestry extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  addressLines(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   approve(
     to: string,
     tokenId: BigNumberish,
@@ -331,6 +371,11 @@ export class TheTapestry extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  linesByWeaver(
+    weaver: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
   name(overrides?: CallOverrides): Promise<string>;
 
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
@@ -343,6 +388,11 @@ export class TheTapestry extends BaseContract {
   "readLine(uint256,uint256)"(
     chapterIndex: BigNumberish,
     lineIndex: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  "readLine(address)"(
+    weaver: string,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -401,6 +451,12 @@ export class TheTapestry extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    addressLines(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -420,6 +476,11 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    linesByWeaver(
+      weaver: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
+
     name(overrides?: CallOverrides): Promise<string>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
@@ -432,6 +493,11 @@ export class TheTapestry extends BaseContract {
     "readLine(uint256,uint256)"(
       chapterIndex: BigNumberish,
       lineIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    "readLine(address)"(
+      weaver: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -547,6 +613,12 @@ export class TheTapestry extends BaseContract {
   };
 
   estimateGas: {
+    addressLines(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -566,6 +638,11 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    linesByWeaver(
+      weaver: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     ownerOf(
@@ -581,6 +658,11 @@ export class TheTapestry extends BaseContract {
     "readLine(uint256,uint256)"(
       chapterIndex: BigNumberish,
       lineIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "readLine(address)"(
+      weaver: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -646,6 +728,12 @@ export class TheTapestry extends BaseContract {
   };
 
   populateTransaction: {
+    addressLines(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     approve(
       to: string,
       tokenId: BigNumberish,
@@ -668,6 +756,11 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    linesByWeaver(
+      weaver: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     ownerOf(
@@ -683,6 +776,11 @@ export class TheTapestry extends BaseContract {
     "readLine(uint256,uint256)"(
       chapterIndex: BigNumberish,
       lineIndex: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "readLine(address)"(
+      weaver: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

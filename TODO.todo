@@ -1,21 +1,49 @@
 TODAY:
   [x] call lines by number
-  [ ] call lines by weaver
+  [x] call lines by weaver
   [ ] limit author to one line per chapter
-
+    add require to weaving
+    that checks if the currentLine
+    get lines by weaver
+    check if the currentLine is in the same chapter as any lines by the weaver
+    DO MATH
+  [x] function takes `uint` lineNumber returns `address` weaver
+  [x] function takes `address` weaver returns `uint[]` lines (linesByWeaver)
 
 TO LEARN:
   [ ] parameter overload
-    [ ] by line
-    [ ] by line & chapter
+    [x] by line
+    [x] by line & chapter
     [ ] by weaver
+
+QUESTIONS:
+  [ ] ARE the number of mints per chapter limited?
+  [ ] Call by lines (shows weaver)
+  [ ] Call by weaver (shows number) do these not call the lines?
+  [ ] Should chapter & stanza also start at 1 like lines?
+  [ ] Can a weaver add both lines 16 & 17 (because they technically in separate chapters)
+  [ ] Would it be better to enforce a number of lines BETWEEN what a weaver can weave? (Or both?)
 
 CHAPTER:
   [ ] minting
     [ ] FIRST only weaver can mint
-    [ ] THEN anyone can
-    [ ] ARE the number of mints per chapter limited?
+    [ ] THEN anyone can  
   [ ] titling
+
+
+HOMEWORK:
+  [x] Do the readStanza function
+  [x] Tests with expects for both chapter and stanzas
+  [ ] add the expect for the readChapter
+  [ ] clean up readChapter2 / readChapter
+  [ ] Follow up in Discord with KZA about our questions
+  [ ] write tests:
+    [ ] `weaverByLine`
+    [ ] `addressLines`
+
+  FELIX:
+    [ ] figure out why "weaving" in previous describes isn't accessible
+    [ ] hypothetical simple contract for Kurt
 
 NFT ART + METADATA:
   [ ]
@@ -25,12 +53,6 @@ LAST WEEK:
   [x] add getting chapters
   [x] add getting stanzas
   [x] replace `balanceOf` with new system
-
-HOMEWORK:
-  [x] Do the readStanza function
-  [x] Tests with expects for both chapter and stanzas
-  [x] add the expect for the readChapter
-  [ ]
 
 TO DO:
   [x] set up repo
@@ -44,4 +66,3 @@ KURT:
 OTHER:
   [ ] ownable, multisig
   [ ] adding chapter titles
-  [ ] clean up readChapter2 / readChapter
