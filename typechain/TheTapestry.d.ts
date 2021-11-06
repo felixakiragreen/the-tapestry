@@ -280,11 +280,6 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    "readLine(address)"(
-      weaver: string,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
     "readLine(uint256)"(
       lineIndex: BigNumberish,
       overrides?: CallOverrides
@@ -391,11 +386,6 @@ export class TheTapestry extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  "readLine(address)"(
-    weaver: string,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
   "readLine(uint256)"(
     lineIndex: BigNumberish,
     overrides?: CallOverrides
@@ -493,11 +483,6 @@ export class TheTapestry extends BaseContract {
     "readLine(uint256,uint256)"(
       chapterIndex: BigNumberish,
       lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    "readLine(address)"(
-      weaver: string,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -661,11 +646,6 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "readLine(address)"(
-      weaver: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     "readLine(uint256)"(
       lineIndex: BigNumberish,
       overrides?: CallOverrides
@@ -776,11 +756,6 @@ export class TheTapestry extends BaseContract {
     "readLine(uint256,uint256)"(
       chapterIndex: BigNumberish,
       lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "readLine(address)"(
-      weaver: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
