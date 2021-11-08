@@ -24,7 +24,7 @@ contract TheTapestry is ERC721 {
 	
 	mapping(address => uint256[]) public addressLines;
 	
-	mapping(uint256 => address) weaverByLine;
+	mapping(uint256 => address) public weaverByLine;
 
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
 
@@ -72,6 +72,9 @@ contract TheTapestry is ERC721 {
 		return addressLines[weaver];
 	}
 
+	// function getWeaverByLine(uint lineIndex) public view returns (string memory) {
+	// 	return weaverByLine[lineIndex];
+	// }
 
 	// anyone should be able to add a line to the tapestry
 	function weave(string memory _line) public {

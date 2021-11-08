@@ -36,9 +36,9 @@ HOMEWORK:
   [x] Tests with expects for both chapter and stanzas
   [x] add the expect for the readChapter
   [x] clean up readChapter2 / readChapter
-  [ ] Follow up in Discord with KZA about our questions
+  [x] Follow up in Discord with KZA about our questions
   [ ] write tests:
-    [ ] `weaverByLine`
+    [x] `weaverByLine`
     [ ] `addressLines`
 
   FELIX:

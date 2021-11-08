@@ -24,6 +24,8 @@ describe('TheTapestry', () => {
 		tapestry = await tapestryFactory.deploy()
 		await tapestry.deployed()
 
+		// console.log('address', tapestry.address)
+
 		// 3
 		expect(tapestry.address).to.properAddress
 	})
@@ -116,7 +118,7 @@ describe('TheTapestry', () => {
 				// const chapter0 = await tapestry.readChapter(0)
 				// console.log(chapter0)
 
-				const chapter0b = await tapestry.readChapter2(0)
+				const chapter0b = await tapestry.readChapter(0)
 				console.log(chapter0b)
 
 				// TODO: move this section out into own test
@@ -191,7 +193,23 @@ describe('TheTapestry', () => {
 				// expect(line).to.eq(TOLKIEN.split('\n')[0])
 				expect(line).to.eq('4 One night to drink his fill.')
 			})
+
+			it('user should be able to get weaver by line number', async () => {
+				// 1. Weave line(s)
+				for (let i = 0; i < 4; i++) {
+					await tapestry.weave(TOLKIEN.split('\n')[i])
+				}
+
+				// 2. Use weaverByLine function
+				const weaver = await tapestry['weaverByLine'](3)
+
+				// 3. write expect for weaver
+				expect(weaver).to.eq(deployer.address)
+			})
 		})
+
+		// describe('weaver', async () => {
+		// })
 	})
 })
 

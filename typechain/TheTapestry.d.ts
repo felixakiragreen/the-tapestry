@@ -29,7 +29,7 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     "linesByWeaver(address)": FunctionFragment;
     "name()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
-    "readChapter2(uint256)": FunctionFragment;
+    "readChapter(uint256)": FunctionFragment;
     "readLine(uint256,uint256)": FunctionFragment;
     "readStanza(uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
@@ -40,6 +40,7 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     "tokenURI(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "weave(string)": FunctionFragment;
+    "weaverByLine(uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -69,7 +70,7 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "readChapter2",
+    functionFragment: "readChapter",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -106,6 +107,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "weave", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "weaverByLine",
+    values: [BigNumberish]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "addressLines",
@@ -128,7 +133,7 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "readChapter2",
+    functionFragment: "readChapter",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "readLine", data: BytesLike): Result;
@@ -156,6 +161,10 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "weave", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "weaverByLine",
+    data: BytesLike
+  ): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
@@ -269,7 +278,7 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    readChapter2(
+    readChapter(
       chapterIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
@@ -339,6 +348,11 @@ export class TheTapestry extends BaseContract {
       _line: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    weaverByLine(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
   };
 
   addressLines(
@@ -375,7 +389,7 @@ export class TheTapestry extends BaseContract {
 
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  readChapter2(
+  readChapter(
     chapterIndex: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
@@ -440,6 +454,8 @@ export class TheTapestry extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  weaverByLine(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
   callStatic: {
     addressLines(
       arg0: string,
@@ -475,7 +491,7 @@ export class TheTapestry extends BaseContract {
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    readChapter2(
+    readChapter(
       chapterIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
@@ -539,6 +555,11 @@ export class TheTapestry extends BaseContract {
     ): Promise<void>;
 
     weave(_line: string, overrides?: CallOverrides): Promise<void>;
+
+    weaverByLine(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
   };
 
   filters: {
@@ -635,7 +656,7 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    readChapter2(
+    readChapter(
       chapterIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -705,6 +726,11 @@ export class TheTapestry extends BaseContract {
       _line: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    weaverByLine(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -748,7 +774,7 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    readChapter2(
+    readChapter(
       chapterIndex: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -817,6 +843,11 @@ export class TheTapestry extends BaseContract {
     weave(
       _line: string,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    weaverByLine(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }
