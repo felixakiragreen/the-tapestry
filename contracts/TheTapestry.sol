@@ -72,10 +72,6 @@ contract TheTapestry is ERC721 {
 		return addressLines[weaver];
 	}
 
-	// function getWeaverByLine(uint lineIndex) public view returns (string memory) {
-	// 	return weaverByLine[lineIndex];
-	// }
-
 	// anyone should be able to add a line to the tapestry
 	function weave(string memory _line) public {
 		// require(_line.length > 0, "Line must be non-empty");
