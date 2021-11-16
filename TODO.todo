@@ -11,10 +11,9 @@ TODAY:
   [x] function takes `address` weaver returns `uint[]` lines (linesByWeaver)
 
 TO LEARN:
-  [ ] parameter overload
+  [x] parameter overload
     [x] by line
     [x] by line & chapter
-    [ ] by weaver
 
 QUESTIONS:
   [ ] ARE the number of mints per chapter limited?
@@ -39,7 +38,22 @@ HOMEWORK:
   [x] Follow up in Discord with KZA about our questions
   [ ] write tests:
     [x] `weaverByLine`
-    [ ] `addressLines`
+    [x] `addressLines`
+  [ ] implement "consecutive lines limit"
+
+  hypotheticals
+    1. weaver can weave only one line per chapter
+      a. get current chapter (use currentLine) (consider making an internal function `getChapterForLine(uint lineNumber) return uint`)
+      b. get addressLines for weaver (msg.sender)
+      c. IF it's not empty... loop through addressLines and `getChapterForLine`
+      d. IF any of them are the same as the current chapter, revert
+      aka. require that none of them are the same as the current chapter
+
+    2. weaver can only weave once every X lines
+      a. get addressLines for weaver (msg.sender)
+      b. IF it's not empty... loop through addressLines
+      c. require that the currentLine is not X away from any of them
+
 
   FELIX:
     [ ] figure out why "weaving" in previous describes isn't accessible
