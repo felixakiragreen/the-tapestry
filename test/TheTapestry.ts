@@ -125,7 +125,7 @@ describe('TheTapestry', () => {
 				const linesForSigner1 = await tapestry.linesByWeaver(
 					accounts[1].address,
 				)
-				console.log(linesForSigner1.map((bigNumber) => bigNumber.toNumber()))
+				// console.log(linesForSigner1.map((bigNumber) => bigNumber.toNumber()))
 
 				expect(chapter0b).to.eq(`
 1 There is an inn, a merry old inn, beneath an old grey hill.
@@ -206,10 +206,51 @@ describe('TheTapestry', () => {
 				// 3. write expect for weaver
 				expect(weaver).to.eq(deployer.address)
 			})
-		})
 
-		// describe('weaver', async () => {
-		// })
+			it('user should be able to get lines by weaver', async () => {
+				// 1. Weave exitsing lines (with accounts.0-2)
+				for (let i = 0; i < 3; i++) {
+					const tapestryConnectedToOtherAccount = await tapestry.connect(
+						accounts[i],
+					)
+					await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[i])
+				}
+
+				// 2. Weave again from accounts.0 (deployer)
+				await tapestry.weave(TOLKIEN.split('\n')[3])
+				// console.log(TOLKIEN.split('\n')[3])
+
+				// 3. Get lines for accounts.0
+				const lineToCheck = await tapestry['linesByWeaver'](deployer.address)
+
+				console.log(lineToCheck.map((bigNumber) => bigNumber.toNumber()))
+				// [1, 4]
+
+				// 3. write expect for the line number
+				// how to do expects for arrays (or objects)
+
+				// 1. check length
+				expect(lineToCheck.length).to.eq(2)
+
+				// 2. loop through every value, and check it
+
+				// 3. JSON.stringify (more work, but most accurate)
+				expect(JSON.stringify(lineToCheck.map((bn) => bn.toNumber()))).to.eq(
+					JSON.stringify([1, 4]),
+				)
+
+				// this doesn't work because arrays can't be equated
+				//expect(lineToCheck.map((bn) => bn.toNumber())).to.eq([1, 4])
+
+				//const test = [1, 2]
+				//const test2 = test
+				//const test3 = [...test]
+
+				//test === test2 // true
+				//test === test3 // false
+				// [1, 2] === [1, 2] // false
+			})
+		})
 	})
 })
 
