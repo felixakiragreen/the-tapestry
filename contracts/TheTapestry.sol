@@ -11,6 +11,12 @@ import 'hardhat/console.sol';
 4 lines = 1 stanza
 4 stanza = 1 chapter = 16 lines
 
+indexes
+
+chapter - current 0-based index, CHANGE to 1-based index
+line - 1-based index
+
+
 */
 
 contract TheTapestry is ERC721 {
@@ -78,15 +84,21 @@ contract TheTapestry is ERC721 {
 		);
 
 		// ensure author hasn't exceeded line limit
+		// checking that the weaver has space for another line (up to 3)
 		require(
 			linesPerAddress[msg.sender] < 4,
 			'Authors CANT add more than 4 lines in total to the tapestry'
 		);
 
 		// ensure author hasn't woven one of the last 16 lines
+		// IF the author has woven — check that their last line was at least 15 lines before
 		if(linesByWeaver(msg.sender).length > 0){
+			uint lineToWeave = currentLine + 1;
+			uint lastLineIndex = linesByWeaver(msg.sender).length -1;
+			uint lastLine = linesByWeaver(msg.sender)[lastLineIndex];
+
 			require(
-				currentLine - linesByWeaver(msg.sender)[linesByWeaver(msg.sender).length -1 ] < 16,
+				lineToWeave - lastLine > 15,
 				'Authors CANT add another line if they wove one of the previous 16 lines'
 			);
 		}
