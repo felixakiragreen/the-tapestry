@@ -173,129 +173,126 @@ describe('TheTapestry', () => {
 	// 5
 	describe('ordering', async () => {
 		// chaptering
-		// 		describe('chapters', async () => {
-		// 			it('user should be able to get the lines in a chapter', async () => {
-		// 				for (let i = 1; i < 5; i++) {
-		// 					// i is the signer index
-		// 					for (let j = 0; j < 4; j++) {
-		// 						// j is the line index
-		// 						const tapestryConnectedToOtherAccount = await tapestry.connect(
-		// 							accounts[i],
-		// 						)
-		// 						const k = (i - 1) * 4 + j
-		// 						console.log({ i, j, k })
-		// 						await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[k])
-		// 					}
-		// 				}
-		// 				// const chapter0 = await tapestry.readChapter(0)
-		// 				// console.log(chapter0)
-		// 				const chapter0b = await tapestry.readChapter(0)
-		// 				console.log('chapter 0b', chapter0b)
-		// 				// TODO: move this section out into own test
-		// 				const linesForSigner1 = await tapestry.linesByWeaver(
-		// 					accounts[1].address,
-		// 				)
-		// 				// console.log(linesForSigner1.map((bigNumber) => bigNumber.toNumber()))
-		// 				expect(chapter0b).to.eq(`
-		// 1 There is an inn, a merry old inn, beneath an old grey hill.
-		// 2 And there they brew a beer so brown.
-		// 3 that the Man in the Moon himself came down.
-		// 4 One night to drink his fill.
-		// 5 The ostler has a tipsy cat that plays a five-stringed fiddle.
-		// 6 And up and down he runs his bow.
-		// 7 Now squeaking high, now purring low.
-		// 8 Now sawing in the middle.
-		// 9 The landlord keeps a little dog.
-		// 10 that is mighty fond of jokes.
-		// 11 When there's good cheer among the guests.
-		// 12 He cocks an ear at all the jests and laughs until he chokes.
-		// 13 They also keep a hornéd cow as proud as any queen.
-		// 14 But music turns her head like ale.
-		// 15 And makes her wave her tufted tail.
-		// 16 and dance upon the green.`)
-		// 			})
-		// 		})
+		describe('chapters', async () => {
+			it('user should be able to get the lines in a chapter', async () => {
+				// for (let i = 1; i < 5; i++) {
+				// 	// i is the signer index
+				// 	for (let j = 0; j < 4; j++) {
+				// 		// j is the line index
+				// 		const tapestryConnectedToOtherAccount = await tapestry.connect(
+				// 			accounts[i],
+				// 		)
+				// 		const k = (i - 1) * 4 + j
+				// 		console.log({ i, j, k })
+				// 		await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[k])
+				// 	}
+				// }
+				await weaveTestLines(tapestry, accounts, 1)
+
+				// const chapter0 = await tapestry.readChapter(0)
+				// console.log(chapter0)
+				const chapter0b = await tapestry.readChapter(0)
+				console.log('chapter 0b', chapter0b)
+				// TODO: move this section out into own test
+				const linesForSigner1 = await tapestry.linesByWeaver(
+					accounts[1].address,
+				)
+				// console.log(linesForSigner1.map((bigNumber) => bigNumber.toNumber()))
+				expect(chapter0b).to.eq(`
+1 There is an inn, a merry old inn, beneath an old grey hill.
+2 And there they brew a beer so brown.
+3 that the Man in the Moon himself came down.
+4 One night to drink his fill.
+5 The ostler has a tipsy cat that plays a five-stringed fiddle.
+6 And up and down he runs his bow.
+7 Now squeaking high, now purring low.
+8 Now sawing in the middle.
+9 The landlord keeps a little dog.
+10 that is mighty fond of jokes.
+11 When there's good cheer among the guests.
+12 He cocks an ear at all the jests and laughs until he chokes.
+13 They also keep a hornéd cow as proud as any queen.
+14 But music turns her head like ale.
+15 And makes her wave her tufted tail.
+16 and dance upon the green.`)
+			})
+		})
 		// Stanzas
-		// 		describe('stanzas', async () => {
-		// 			it('user should be able to get the lines in a stanza', async () => {
-		// 				for (let i = 0; i < 4; i++) {
-		// 					await tapestry.weave(TOLKIEN.split('\n')[i])
-		// 				}
-		// 				const stanza0 = await tapestry.readStanza(0)
-		// 				console.log('stanza 0', stanza0)
-		// 				// expect(stanza).to.eq(TOLKIEN.split('\n').slice(0, 4).join('\n'))
-		// 				expect(stanza0).to.eq(`
-		// 1 There is an inn, a merry old inn, beneath an old grey hill.
-		// 2 And there they brew a beer so brown.
-		// 3 that the Man in the Moon himself came down.
-		// 4 One night to drink his fill.
-		// `)
-		// 			})
-		// 		})
-		// describe('lines', async () => {
-		// 	it('user should be able to get the line by number', async () => {
-		// 		// await tapestry.weave(TOLKIEN.split('\n')[0])
-		// 		for (let i = 0; i < 4; i++) {
-		// 			await tapestry.weave(TOLKIEN.split('\n')[i])
-		// 		}
-		// 		const line = await tapestry['readLine(uint256)'](1)
-		// 		expect(line).to.eq(TOLKIEN.split('\n')[0])
-		// 		// expect(line).to.eq(
-		// 		// 	'1 There is an inn, a merry old inn, beneath an old grey hill.',
-		// 		// )
-		// 	})
-		// 	it('user should be able to get the line by chapter and line number', async () => {
-		// 		for (let i = 0; i < 4; i++) {
-		// 			await tapestry.weave(TOLKIEN.split('\n')[i])
-		// 		}
-		// 		const line = await tapestry['readLine(uint256,uint256)'](0, 4)
-		// 		// expect(line).to.eq(TOLKIEN.split('\n')[0])
-		// 		expect(line).to.eq('4 One night to drink his fill.')
-		// 	})
-		// 	it('user should be able to get weaver by line number', async () => {
-		// 		// 1. Weave line(s)
-		// 		for (let i = 0; i < 4; i++) {
-		// 			await tapestry.weave(TOLKIEN.split('\n')[i])
-		// 		}
-		// 		// 2. Use weaverByLine function
-		// 		const weaver = await tapestry['weaverByLine'](3)
-		// 		// 3. write expect for weaver
-		// 		expect(weaver).to.eq(deployer.address)
-		// 	})
-		// 	it('user should be able to get lines by weaver', async () => {
-		// 		// 1. Weave exitsing lines (with accounts.0-2)
-		// 		for (let i = 0; i < 3; i++) {
-		// 			const tapestryConnectedToOtherAccount = await tapestry.connect(
-		// 				accounts[i],
-		// 			)
-		// 			await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[i])
-		// 		}
-		// 		// 2. Weave again from accounts.0 (deployer)
-		// 		await tapestry.weave(TOLKIEN.split('\n')[3])
-		// 		// console.log(TOLKIEN.split('\n')[3])
-		// 		// 3. Get lines for accounts.0
-		// 		const lineToCheck = await tapestry['linesByWeaver'](deployer.address)
-		// 		console.log(lineToCheck.map((bigNumber) => bigNumber.toNumber()))
-		// 		// [1, 4]
-		// 		// 3. write expect for the line number
-		// 		// how to do expects for arrays (or objects)
-		// 		// 1. check length
-		// 		expect(lineToCheck.length).to.eq(2)
-		// 		// 2. loop through every value, and check it
-		// 		// 3. JSON.stringify (more work, but most accurate)
-		// 		expect(JSON.stringify(lineToCheck.map((bn) => bn.toNumber()))).to.eq(
-		// 			JSON.stringify([1, 4]),
-		// 		)
-		// 		// this doesn't work because arrays can't be equated
-		// 		//expect(lineToCheck.map((bn) => bn.toNumber())).to.eq([1, 4])
-		// 		//const test = [1, 2]
-		// 		//const test2 = test
-		// 		//const test3 = [...test]
-		// 		//test === test2 // true
-		// 		//test === test3 // false
-		// 		// [1, 2] === [1, 2] // false
-		// 	})
-		// })
+		describe('stanzas', async () => {
+			it('user should be able to get the lines in a stanza', async () => {
+				// for (let i = 0; i < 4; i++) {
+				// 	await tapestry.weave(TOLKIEN.split('\n')[i])
+				// }
+
+				await weaveTestLines(tapestry, accounts, 1)
+
+				const stanza0 = await tapestry.readStanza(0)
+				console.log('stanza 0', stanza0)
+				// expect(stanza).to.eq(TOLKIEN.split('\n').slice(0, 4).join('\n'))
+				expect(stanza0).to.eq(`
+1 There is an inn, a merry old inn, beneath an old grey hill.
+2 And there they brew a beer so brown.
+3 that the Man in the Moon himself came down.
+4 One night to drink his fill.`)
+			})
+		})
+		describe('lines', async () => {
+			it('user should be able to get the line by number', async () => {
+				// await tapestry.weave(TOLKIEN.split('\n')[0])
+				await weaveTestLines(tapestry, accounts, 1)
+
+				const line = await tapestry['readLine(uint256)'](1)
+				expect(line).to.eq(TOLKIEN.split('\n')[0])
+				// expect(line).to.eq(
+				// 	'1 There is an inn, a merry old inn, beneath an old grey hill.',
+				// )
+			})
+			it('user should be able to get the line by chapter and line number', async () => {
+				await weaveTestLines(tapestry, accounts, 1)
+
+				const line = await tapestry['readLine(uint256,uint256)'](0, 4)
+				// expect(line).to.eq(TOLKIEN.split('\n')[0])
+				expect(line).to.eq('4 One night to drink his fill.')
+			})
+			it('user should be able to get weaver by line number', async () => {
+				// 1. Weave line(s)
+				await weaveTestLines(tapestry, accounts, 1)
+
+				// 2. Use weaverByLine function
+				const weaver = await tapestry['weaverByLine'](3)
+				// 3. write expect for weaver
+				expect(weaver).to.eq(accounts[2].address)
+			})
+			it('user should be able to get lines by weaver', async () => {
+				// 1. Weave exitsing lines (with accounts.0-2)
+				await weaveTestLines(tapestry, accounts, 1)
+
+				// 2. Weave again from accounts.0 (deployer)
+				await tapestry.weave(TOLKIEN.split('\n')[3])
+				// console.log(TOLKIEN.split('\n')[3])
+				// 3. Get lines for accounts.0
+				const lineToCheck = await tapestry['linesByWeaver'](deployer.address)
+				console.log(lineToCheck.map((bigNumber) => bigNumber.toNumber()))
+				// [1, 4]
+				// 3. write expect for the line number
+				// how to do expects for arrays (or objects)
+				// 1. check length
+				expect(lineToCheck.length).to.eq(2)
+				// 2. loop through every value, and check it
+				// 3. JSON.stringify (more work, but most accurate)
+				expect(JSON.stringify(lineToCheck.map((bn) => bn.toNumber()))).to.eq(
+					JSON.stringify([1, 17]),
+				)
+				// this doesn't work because arrays can't be equated
+				//expect(lineToCheck.map((bn) => bn.toNumber())).to.eq([1, 4])
+				//const test = [1, 2]
+				//const test2 = test
+				//const test3 = [...test]
+				//test === test2 // true
+				//test === test3 // false
+				// [1, 2] === [1, 2] // false
+			})
+		})
 	})
 })
 
