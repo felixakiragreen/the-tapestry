@@ -86,7 +86,7 @@ contract TheTapestry is ERC721 {
 		// ensure author hasn't woven one of the last 16 lines
 		if(linesByWeaver(msg.sender).length > 0){
 			require(
-				linesByWeaver(msg.sender)[linesByWeaver(msg.sender).length -1 ] > 16,
+				currentLine - linesByWeaver(msg.sender)[linesByWeaver(msg.sender).length -1 ] < 16,
 				'Authors CANT add another line if they wove one of the previous 16 lines'
 			);
 		}
