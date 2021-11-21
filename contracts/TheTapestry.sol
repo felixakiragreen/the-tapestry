@@ -51,7 +51,7 @@ contract TheTapestry is ERC721 {
 	function readStanza(uint stanzaIndex) public view returns (string memory) {
 		string memory stanza;
 
-		for (uint i; i < 5; i++){
+		for (uint i; i < 4; i++){
 			uint k = i + 1 + stanzaIndex * 4;
 
 			stanza = string(abi.encodePacked(bytes(stanza), bytes("\n"), bytes(tapestryLines[k])));
