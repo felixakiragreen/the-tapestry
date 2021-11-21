@@ -53,8 +53,13 @@ describe('TheTapestry', () => {
 		it('Authors CANT add more than 4 lines in total to the tapestry', async () => {
 			// TODO: confirm whether this is per tapestry or chapter
 
-			for (let i = 0; i < 4; i++) {
-				await tapestry.weave(TOLKIEN.split('\n')[i])
+			// for (let i = 0; i < 4; i++) {
+			// 	await tapestry.weave(TOLKIEN.split('\n')[i])
+			// }
+
+			for (let i = 0; i < 48; i++) {
+				const tapestryConnectedToOtherAccount = tapestry.connect(accounts[i])
+				await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[i])
 			}
 
 			await expect(tapestry.weave(TOLKIEN.split('\n')[4])).to.be.revertedWith(
@@ -313,34 +318,34 @@ const TOLKIEN = `1 There is an inn, a merry old inn, beneath an old grey hill.
 18 The store of silver spoons.
 19 For Sunday there's a special pair.
 20 And these they polish up with care on Saturday afternoons.
-The Man in the Moon was drinking deep, and the cat began to wail.
-A dish and a spoon on the table danced.
-The cow in the garden madly pranced.
-The little dog chased his tail.
-The Man in the Moon took another mug.
-Then rolled beneath his chair.
-And there he dozed and dreamed of ale.
-Till in the sky the stars were pale, and dawn was in the air.
-Then the ostler said to his tipsy cat.
-The white horses of the Moon neigh and champ their silver bits.
-But their master's been and drowned his wits.
-The Sun'll be rising soon! So the cat on his fiddle played hey-diddle-diddle, a jig that would wake the dead.
-He squeaked and sawed and quickened the tune.
-While the landlord shook the Man in the Moon.
-It's after three! he said.
-They rolled the Man slowly up the hill and bundled him into the Moon.
-While the horses galloped up in rear.
-And the cow came capering like a deer.
-and a dish ran up with a spoon.
-Now quicker the fiddle went deedle-dum-diddle, the dog began to roar.
-The cow and the horses stood on their heads.
-The guests all bounded from their beds.
-And danced upon the floor.
-With a ping and a long the fiddle-strings broke! the cow jumped over the Moon.
-And the little dog laughed to see such fun.
-And the Saturday dish went off at a run with the silver Sunday spoon.
-The round Moon rolled behind the hill, as the Sun raised up her head.
-She hardly believed her fiery eyes.
-For though it was day, to her surprise.
-Then they all went back to bed.
+21 The Man in the Moon was drinking deep, and the cat began to wail.
+22 A dish and a spoon on the table danced.
+23 The cow in the garden madly pranced.
+24 The little dog chased his tail.
+25 The Man in the Moon took another mug.
+26 Then rolled beneath his chair.
+27 And there he dozed and dreamed of ale.
+28 Till in the sky the stars were pale, and dawn was in the air.
+29 Then the ostler said to his tipsy cat.
+30 The white horses of the Moon neigh and champ their silver bits.
+31 But their master's been and drowned his wits.
+32 The Sun'll be rising soon! So the cat on his fiddle played hey-diddle-diddle, a jig that would wake the dead.
+33 He squeaked and sawed and quickened the tune.
+34 While the landlord shook the Man in the Moon.
+35 It's after three! he said.
+36 They rolled the Man slowly up the hill and bundled him into the Moon.
+37 While the horses galloped up in rear.
+38 And the cow came capering like a deer.
+39 and a dish ran up with a spoon.
+40 Now quicker the fiddle went deedle-dum-diddle, the dog began to roar.
+41 The cow and the horses stood on their heads.
+42 The guests all bounded from their beds.
+43 And danced upon the floor.
+44 With a ping and a long the fiddle-strings broke! the cow jumped over the Moon.
+45 And the little dog laughed to see such fun.
+46 And the Saturday dish went off at a run with the silver Sunday spoon.
+47 The round Moon rolled behind the hill, as the Sun raised up her head.
+48 She hardly believed her fiery eyes.
+49 For though it was day, to her surprise.
+50 Then they all went back to bed.
 `
