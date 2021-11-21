@@ -3,6 +3,7 @@ import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 import { TheTapestry__factory, TheTapestry } from '../typechain'
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { BigNumber } from '@ethersproject/bignumber'
 
 chai.use(chaiAsPromised)
 const { expect } = chai
@@ -77,6 +78,44 @@ describe('TheTapestry', () => {
 			expect(balance1).to.eq(1)
 		})
 
+		it('Authors CANT add another line if they wove one of the previous 16 lines', async () => {
+			for (let i = 0; i < 16; i++) {
+				const tapestryConnectedToOtherAccount = tapestry.connect(accounts[i])
+				await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[i])
+			}
+
+			const chapter1 = await tapestry.readChapter(0)
+			console.log('read chapter 1', chapter1)
+
+			await tapestry.weave(TOLKIEN.split('\n')[16])
+
+			const chapter2 = await tapestry.readChapter(1)
+			console.log('read chapter 2', chapter2)
+
+			const currentWeaverLines = await tapestry.linesByWeaver(
+				accounts[0].address,
+			)
+
+			const CurrentWeaverLinesBN = currentWeaverLines.map((bigNumber) =>
+				bigNumber.toNumber(),
+			)
+
+			// console.log(
+			// 	'TEST LINES BY WEAVER (INTEGER)',
+			// 	// currentweaverlines.map((bigNumber) => bigNumber.toNumber()).length,
+			// 	currentWeaverLines.map((bigNumber) => bigNumber.toNumber()),
+			// )
+
+			const currentWeaverlastLine =
+				CurrentWeaverLinesBN[CurrentWeaverLinesBN.length - 1]
+
+			console.log(currentWeaverlastLine)
+
+			await expect(tapestry.weave(TOLKIEN.split('\n')[17])).to.be.revertedWith(
+				'Authors CANT add another line if they wove one of the previous 16 lines',
+			)
+		})
+
 		describe('content constraints', async () => {
 			it('Lines are limited to 100 characters', async () => {
 				await expect(tapestry.weave(TOLKIEN)).to.be.revertedWith(
@@ -119,7 +158,7 @@ describe('TheTapestry', () => {
 				// console.log(chapter0)
 
 				const chapter0b = await tapestry.readChapter(0)
-				console.log(chapter0b)
+				console.log('chapter 0b', chapter0b)
 
 				// TODO: move this section out into own test
 				const linesForSigner1 = await tapestry.linesByWeaver(
@@ -155,7 +194,7 @@ describe('TheTapestry', () => {
 				}
 
 				const stanza0 = await tapestry.readStanza(0)
-				console.log(stanza0)
+				console.log('stanza 0', stanza0)
 
 				// expect(stanza).to.eq(TOLKIEN.split('\n').slice(0, 4).join('\n'))
 				expect(stanza0).to.eq(`
@@ -270,10 +309,10 @@ const TOLKIEN = `1 There is an inn, a merry old inn, beneath an old grey hill.
 14 But music turns her head like ale.
 15 And makes her wave her tufted tail.
 16 and dance upon the green.
-And O! the rows of silver dishes.
-The store of silver spoons.
-For Sunday there's a special pair.
-And these they polish up with care on Saturday afternoons.
+17 And O! the rows of silver dishes.
+18 The store of silver spoons.
+19 For Sunday there's a special pair.
+20 And these they polish up with care on Saturday afternoons.
 The Man in the Moon was drinking deep, and the cat began to wail.
 A dish and a spoon on the table danced.
 The cow in the garden madly pranced.
