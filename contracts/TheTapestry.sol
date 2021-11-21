@@ -18,12 +18,9 @@ contract TheTapestry is ERC721 {
 	// key: line number => val: actual line (string)
 	mapping(uint256 => string) public tapestryLines;
 
-	// address and unint
-	// TODO:: remove & replace functionality with addressLines
 	mapping(address => uint256) linesPerAddress;
-	
+
 	mapping(address => uint256[]) public addressLines;
-	
 	mapping(uint256 => address) public weaverByLine;
 
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
@@ -85,6 +82,14 @@ contract TheTapestry is ERC721 {
 			linesPerAddress[msg.sender] < 4,
 			'Authors CANT add more than 4 lines in total to the tapestry'
 		);
+
+		// ensure author hasn't woven one of the last 16 lines
+		if(linesByWeaver(msg.sender).length > 0){
+			require(
+				linesByWeaver(msg.sender)[linesByWeaver(msg.sender).length -1 ] > 16,
+				'Authors CANT add another line if they wove one of the previous 16 lines'
+			);
+		}
 
 		// start with line 1
 		currentLine++;
