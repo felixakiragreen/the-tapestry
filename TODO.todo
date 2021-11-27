@@ -8,8 +8,8 @@ HOMEWORK:
     c. require that the currentLine is not X away from any of them
   [x] Update Chapters to start at 1
   [x] Update Stanzas to start a 1
-  [ ] remove `linesPerAddress` & replace functionality with `addressLines`
-  [ ] rename `addressLines` to `weaverLines`
+  [x] remove `linesPerAddress` & replace functionality with `weaverLines`
+  [x] rename `addressLines` to `weaverLines`
   [ ] Clean up logs
 
 

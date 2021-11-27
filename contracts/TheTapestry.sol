@@ -30,7 +30,7 @@ contract TheTapestry is ERC721 {
 	// key: line number => val: actual line (string)
 	mapping(uint256 => string) public tapestryLines;
 
-	mapping(address => uint256) linesPerAddress;
+	// mapping(address => uint256) linesPerAddress;
 
 	mapping(address => uint256[]) public weaverLines;
 	mapping(uint256 => address) public weaverByLine;
@@ -93,7 +93,8 @@ contract TheTapestry is ERC721 {
 		// ensure author hasn't exceeded line limit
 		// checking that the weaver has space for another line (up to 3)
 		require(
-			linesPerAddress[msg.sender] < 4,
+			// linesPerAddress[msg.sender] < 4,
+			weaverLines[msg.sender].length < 4,
 			'Authors CANT add more than 4 lines in total to the tapestry'
 		);
 
@@ -115,7 +116,8 @@ contract TheTapestry is ERC721 {
 		tapestryLines[currentLine] = _line;
 
 		// increment linesPerAddress every time NFT mints
-		linesPerAddress[msg.sender]++;
+		// linesPerAddress[msg.sender]++;
+		
 
 		// add line to weaverLines
 		weaverLines[msg.sender].push(currentLine);
