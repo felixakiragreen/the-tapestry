@@ -226,10 +226,10 @@ describe('TheTapestry', () => {
 
 				await weaveTestLines(tapestry, accounts, 1)
 
-				const stanza0 = await tapestry.readStanza(0)
-				console.log('stanza 0', stanza0)
+				const stanza1 = await tapestry.readStanza(1)
+				console.log('stanza 0', stanza1)
 				// expect(stanza).to.eq(TOLKIEN.split('\n').slice(0, 4).join('\n'))
-				expect(stanza0).to.eq(`
+				expect(stanza1).to.eq(`
 1 There is an inn, a merry old inn, beneath an old grey hill.
 2 And there they brew a beer so brown.
 3 that the Man in the Moon himself came down.
@@ -283,6 +283,9 @@ describe('TheTapestry', () => {
 				expect(JSON.stringify(lineToCheck.map((bn) => bn.toNumber()))).to.eq(
 					JSON.stringify([1, 17]),
 				)
+				console.log('read first stanza', await tapestry.readStanza(1))
+				console.log('read second stanza', await tapestry.readStanza(2))
+
 				// this doesn't work because arrays can't be equated
 				//expect(lineToCheck.map((bn) => bn.toNumber())).to.eq([1, 4])
 				//const test = [1, 2]

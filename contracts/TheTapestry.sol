@@ -7,21 +7,21 @@ import 'hardhat/console.sol';
 
 /*
 
-DEFINITIONS:
+	DEFINITIONS:
 
-Numbers:
-1 line = <100 character
-4 lines = 1 stanza
-4 stanza = 1 chapter = 16 lines
+	Numbers:
+	1 line = <100 character
+	4 lines = 1 stanza
+	4 stanza = 1 chapter = 16 lines
 
-Indexes:
-chapter - current 0-based index, TODO: change to 1-based index
-stanza - current 0-based index, TODO: change to 1-based index
-line - 1-based index
+	Indexes:
+	chapter - current 0-based index, TODO: change to 1-based index
+	stanza - current 0-based index, TODO: change to 1-based index
+	line - 1-based index
 
-Terms:
-Weaver - any address that has added 1 or more lines to the tapestry
-Author - a weaver of a specific line in a chapter
+	Terms:
+	Weaver - any address that has added 1 or more lines to the tapestry
+	Author - a weaver of a specific line in a chapter
 
 */
 
@@ -56,10 +56,12 @@ contract TheTapestry is ERC721 {
 
 	function readStanza(uint stanzaIndex) public view returns (string memory) {
 		string memory stanza;
-
+		// needs to return first for lines when referenceing stanzaIndex 1
 		for (uint i; i < 4; i++){
-			uint k = i + 1 + stanzaIndex * 4;
+			// Calculate lines being accessed per stanza
+			// needs to return 1, 2, 3, 4 for stanzaIndex 1
 
+			uint k = i + 1 + (stanzaIndex-1) * 4;
 			stanza = string(abi.encodePacked(bytes(stanza), bytes("\n"), bytes(tapestryLines[k])));
 		}
 		return stanza;
@@ -70,7 +72,6 @@ contract TheTapestry is ERC721 {
 	}
 	
 	function readLine(uint chapterIndex, uint lineIndex ) public view returns(string memory) {
-
 		// do math
 		// +1 because lines start at 1
 		uint adjustedLineIndex = lineIndex + chapterIndex * 16;
