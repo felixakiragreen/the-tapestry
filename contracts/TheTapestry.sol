@@ -32,7 +32,7 @@ contract TheTapestry is ERC721 {
 
 	mapping(address => uint256) linesPerAddress;
 
-	mapping(address => uint256[]) public addressLines;
+	mapping(address => uint256[]) public weaverLines;
 	mapping(uint256 => address) public weaverByLine;
 
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
@@ -79,7 +79,7 @@ contract TheTapestry is ERC721 {
 	}
 	
 	function linesByWeaver(address weaver) public view returns (uint[] memory) {
-		return addressLines[weaver];
+		return weaverLines[weaver];
 	}
 
 	// anyone should be able to add a line to the tapestry
@@ -117,8 +117,8 @@ contract TheTapestry is ERC721 {
 		// increment linesPerAddress every time NFT mints
 		linesPerAddress[msg.sender]++;
 
-		// add line to addressLines
-		addressLines[msg.sender].push(currentLine);
+		// add line to weaverLines
+		weaverLines[msg.sender].push(currentLine);
 
 		// add to weaverByLine
 		weaverByLine[currentLine] = msg.sender;
