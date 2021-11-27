@@ -1,82 +1,65 @@
-TODAY:
-  [x] call lines by number
-  [x] call lines by weaver
-  [ ] limit author to one line per chapter
-    add require to weaving
-    that checks if the currentLine
-    get lines by weaver
-    check if the currentLine is in the same chapter as any lines by the weaver
-    DO MATH
-  [x] function takes `uint` lineNumber returns `address` weaver
-  [x] function takes `address` weaver returns `uint[]` lines (linesByWeaver)
+NEXT:
+  [ ]
 
-TO LEARN:
-  [x] parameter overload
-    [x] by line
-    [x] by line & chapter
+HOMEWORK:
+  [x] weaver can only weave once every 16 lines
+    a. get addressLines for weaver (msg.sender)
+    b. IF it's not empty... loop through addressLines
+    c. require that the currentLine is not X away from any of them
+  [ ] Update Chapters to start at 1
+  [ ] Update Stanzas to start a 1
+  [ ] remove `linesPerAddress` & replace functionality with `addressLines`
+  [ ] rename `addressLines` to `weaverLines`
+  [ ] Clean up logs
 
-QUESTIONS:
-  [ ] ARE the number of mints per chapter limited?
-  [ ] Call by lines (shows weaver)
-  [ ] Call by weaver (shows number) do these not call the lines?
-  [ ] Should chapter & stanza also start at 1 like lines?
-  [ ] Can a weaver add both lines 16 & 17 (because they technically in separate chapters)
-  [ ] Would it be better to enforce a number of lines BETWEEN what a weaver can weave? (Or both?)
+
+// Chapter Contract
+// ================
+// in constructor - pass in the address of the line contract
+// store it
+// import the interface of the line contract
+// using it ITheTapestry(tapestryAddress).lineByWeaver...
+// mint function (thematic name: maybe printing press)
+// restrict it to chapters that are completed
+// restrict it to authors (direct weavers)
+// restrict it to 16 max per chapter
+// IDs needs to be handled specially
+  // order of minting isn't the order of IDs
+  // chapter 1 - IDs 1-16
+  // chapter 2 - IDs 17-32
+// LATER
+  // naming
+  // time delays
+  // pricing
 
 CHAPTER:
   [ ] minting
-    [ ] FIRST only weaver can mint
-    [ ] THEN anyone can  
+    [ ] FIRST only weavers OF THIS CHAPTER (16) can mint (for FREE)
+    [ ] LIMIT to 16 NFTs per chapter
+    [ ] If LIMIT (16) has NOT been reached after X time
+      [ ] THEN anyone can mint
+      [ ] Add a PRICE
   [ ] titling
 
-
-HOMEWORK:
-  [x] Do the readStanza function
-  [x] Tests with expects for both chapter and stanzas
-  [x] add the expect for the readChapter
-  [x] clean up readChapter2 / readChapter
-  [x] Follow up in Discord with KZA about our questions
-  [ ] write tests:
-    [x] `weaverByLine`
-    [x] `addressLines`
-  [ ] implement "consecutive lines limit"
-
-  hypotheticals
-    1. weaver can weave only one line per chapter
-      a. get current chapter (use currentLine) (consider making an internal function `getChapterForLine(uint lineNumber) return uint`)
-      b. get addressLines for weaver (msg.sender)
-      c. IF it's not empty... loop through addressLines and `getChapterForLine`
-      d. IF any of them are the same as the current chapter, revert
-      aka. require that none of them are the same as the current chapter
-
-    2. weaver can only weave once every X lines
-      a. get addressLines for weaver (msg.sender)
-      b. IF it's not empty... loop through addressLines
-      c. require that the currentLine is not X away from any of them
-
-
-  FELIX:
-    [ ] figure out why "weaving" in previous describes isn't accessible
-    [ ] hypothetical simple contract for Kurt
 
 NFT ART + METADATA:
   [ ]
 
-LAST WEEK:
-  [x] update the lines per address constraints
-  [x] add getting chapters
-  [x] add getting stanzas
-  [x] replace `balanceOf` with new system
-
-TO DO:
-  [x] set up repo
-  [x] copy + pasting all the basics
-    package.json, directories, tests, etc.
-
-KURT:
-  [x] Minimum character length
-  [x] Limiting number of lines per address
-
 OTHER:
   [ ] ownable, multisig
   [ ] adding chapter titles
+
+
+QUESTIONS:
+  [x] ARE the number of mints per chapter limited?
+    16
+  [x] Call by lines (shows weaver)
+  [x] Call by weaver (shows number) do these not call the lines?
+  [x] Should chapter also start at 1 like lines?
+    YES
+  [x] Can a weaver add both lines 16 & 17 (because they technically in separate chapters)
+    NO
+  [x] Would it be better to enforce a number of lines BETWEEN what a weaver can weave? (Or both?)
+    16
+  [ ] Can 1 weaver mint all 16 of the chapter NFTs? (Is there a limit per address?)
+  [ ] Should the chapter NFTs be in a different contract?

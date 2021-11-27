@@ -7,15 +7,21 @@ import 'hardhat/console.sol';
 
 /*
 
+DEFINITIONS:
+
+Numbers:
 1 line = <100 character
 4 lines = 1 stanza
 4 stanza = 1 chapter = 16 lines
 
-indexes
-
-chapter - current 0-based index, CHANGE to 1-based index
+Indexes:
+chapter - current 0-based index, TODO: change to 1-based index
+stanza - current 0-based index, TODO: change to 1-based index
 line - 1-based index
 
+Terms:
+Weaver - any address that has added 1 or more lines to the tapestry
+Author - a weaver of a specific line in a chapter
 
 */
 
