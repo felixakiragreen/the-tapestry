@@ -87,12 +87,12 @@ describe('TheTapestry', () => {
 			await weaveTestLines(tapestry, accounts, 1)
 
 			const chapter1 = await tapestry.readChapter(1)
-			console.log('read chapter 1', chapter1)
+			// console.log('read chapter 1', chapter1)
 
 			await tapestry.weave(TOLKIEN.split('\n')[16])
 
 			const chapter2 = await tapestry.readChapter(1)
-			console.log('read chapter 2', chapter2)
+			// console.log('read chapter 2', chapter2)
 
 			const currentWeaverLines = await tapestry.linesByWeaver(
 				accounts[0].address,
