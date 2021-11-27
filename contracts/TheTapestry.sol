@@ -43,7 +43,7 @@ contract TheTapestry is ERC721 {
 		for (uint i; i < 16; i++){
 		// do math
 		// +1 because lines start at 1
-			uint j = i + 1 + chapterIndex * 16;
+			uint j = i + 1 + (chapterIndex-1) * 16;
 		// assemble/return array of strings
 		// access current lines in tapestry
 

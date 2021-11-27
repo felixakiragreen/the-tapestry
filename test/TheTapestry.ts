@@ -120,7 +120,7 @@ describe('TheTapestry', () => {
 
 			await weaveTestLines(tapestry, accounts, 1)
 
-			const chapter1 = await tapestry.readChapter(0)
+			const chapter1 = await tapestry.readChapter(1)
 			console.log('read chapter 1', chapter1)
 
 			await tapestry.weave(TOLKIEN.split('\n')[16])
@@ -189,16 +189,18 @@ describe('TheTapestry', () => {
 				// }
 				await weaveTestLines(tapestry, accounts, 1)
 
-				// const chapter0 = await tapestry.readChapter(0)
-				// console.log(chapter0)
-				const chapter0b = await tapestry.readChapter(0)
-				console.log('chapter 0b', chapter0b)
+				// const chapter1 = await tapestry.readChapter(1)
+				// console.log('read first chapter', chapter1)
+
+				const chapter1 = await tapestry.readChapter(1)
+				console.log('read chapter 1', chapter1)
 				// TODO: move this section out into own test
-				const linesForSigner1 = await tapestry.linesByWeaver(
-					accounts[1].address,
-				)
+				// const linesForSigner1 = await tapestry.linesByWeaver(
+				// 	accounts[1].address,
+				// )
 				// console.log(linesForSigner1.map((bigNumber) => bigNumber.toNumber()))
-				expect(chapter0b).to.eq(`
+
+				expect(chapter1).to.eq(`
 1 There is an inn, a merry old inn, beneath an old grey hill.
 2 And there they brew a beer so brown.
 3 that the Man in the Moon himself came down.
