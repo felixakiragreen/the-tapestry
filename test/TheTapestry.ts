@@ -44,8 +44,6 @@ describe('TheTapestry', () => {
 		tapestry = await tapestryFactory.deploy()
 		await tapestry.deployed()
 
-		// console.log('address', tapestry.address)
-
 		// 3
 		expect(tapestry.address).to.properAddress
 	})
@@ -68,41 +66,14 @@ describe('TheTapestry', () => {
 		})
 
 		it('Authors CANT add more than 4 lines in total to the tapestry', async () => {
-			// Weave 4 Chapters(64 Lines) - including 4 lines for signer 0
-			// loop through 16 lines three times, using 16 signers
-
-			// for (let c = 1; c < 5; c++) {
-			// 	// c is chapter index
-
-			// 	for (let l = 0; l < 16; l++) {
-			// 		const k = (c - 1) * 16 + l
-			// 		const tapestryConnectedToOtherAccount = tapestry.connect(accounts[l])
-			// 		await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[k])
-			// 	}
-			// }
-
 			await weaveTestLines(tapestry, accounts)
-
-			// console.log(await tapestry.readChapter(2))
-			// tapestry.weave(TOLKIEN.split('\n')[48])
 			const signer0Lines = await tapestry.linesByWeaver(accounts[0].address)
-			console.log(signer0Lines.map((bigNumber) => bigNumber.toNumber()))
-			console.log(await tapestry.weaverByLine(49))
-			console.log(await tapestry.readChapter(3))
-			console.log(await tapestry.readChapter(4))
+			// console.log(signer0Lines.map((bigNumber) => bigNumber.toNumber()))
 
 			await expect(tapestry.weave(TOLKIEN.split('\n')[49])).to.be.revertedWith(
 				'Authors CANT add more than 4 lines in total to the tapestry',
 			)
 		})
-
-		// it('Authors CANT add more than 1 line per chapter', async () => {
-		// 	// TODO: confirm whether this is per tapestry or chapter
-		// 	await tapestry.weave(lineToAdd)
-		// 	await expect(tapestry.weave(lineToAdd)).to.be.revertedWith(
-		// 		'Authors CANT add more than 1 line per chapter',
-		// 	)
-		// })
 
 		it('should mint an NFT when a line is successfully added', async () => {
 			const balance0 = await tapestry.balanceOf(deployer.address)
@@ -113,11 +84,6 @@ describe('TheTapestry', () => {
 		})
 
 		it('Authors CANT add another line if they wove one of the previous 16 lines', async () => {
-			// for (let i = 0; i < 16; i++) {
-			// 	const tapestryConnectedToOtherAccount = tapestry.connect(accounts[i])
-			// 	await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[i])
-			// }
-
 			await weaveTestLines(tapestry, accounts, 1)
 
 			const chapter1 = await tapestry.readChapter(1)
@@ -136,16 +102,8 @@ describe('TheTapestry', () => {
 				bigNumber.toNumber(),
 			)
 
-			// console.log(
-			// 	'TEST LINES BY WEAVER (INTEGER)',
-			// 	// currentweaverlines.map((bigNumber) => bigNumber.toNumber()).length,
-			// 	currentWeaverLines.map((bigNumber) => bigNumber.toNumber()),
-			// )
-
 			const currentWeaverlastLine =
 				CurrentWeaverLinesBN[CurrentWeaverLinesBN.length - 1]
-
-			console.log(currentWeaverlastLine)
 
 			await expect(tapestry.weave(TOLKIEN.split('\n')[17])).to.be.revertedWith(
 				'Authors CANT add another line if they wove one of the previous 16 lines',
@@ -157,16 +115,7 @@ describe('TheTapestry', () => {
 				await expect(tapestry.weave(TOLKIEN)).to.be.revertedWith(
 					'Lines are limited to 100 characters',
 				)
-
-				// is this valid?
-				// "a b c d e f g h i j k"
-				// "thisisaverylongnotwords but now we think itisaword"
 			})
-
-			// it('stanzas are limited to 4 lines', async () => {
-			// 	//
-			// 	expect(true).to.be.false
-			// })
 		})
 	})
 
@@ -175,30 +124,12 @@ describe('TheTapestry', () => {
 		// chaptering
 		describe('chapters', async () => {
 			it('user should be able to get the lines in a chapter', async () => {
-				// for (let i = 1; i < 5; i++) {
-				// 	// i is the signer index
-				// 	for (let j = 0; j < 4; j++) {
-				// 		// j is the line index
-				// 		const tapestryConnectedToOtherAccount = await tapestry.connect(
-				// 			accounts[i],
-				// 		)
-				// 		const k = (i - 1) * 4 + j
-				// 		console.log({ i, j, k })
-				// 		await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[k])
-				// 	}
-				// }
 				await weaveTestLines(tapestry, accounts, 1)
 
-				// const chapter1 = await tapestry.readChapter(1)
-				// console.log('read first chapter', chapter1)
-
 				const chapter1 = await tapestry.readChapter(1)
-				console.log('read chapter 1', chapter1)
+				// console.log('read chapter 1', chapter1)
+
 				// TODO: move this section out into own test
-				// const linesForSigner1 = await tapestry.linesByWeaver(
-				// 	accounts[1].address,
-				// )
-				// console.log(linesForSigner1.map((bigNumber) => bigNumber.toNumber()))
 
 				expect(chapter1).to.eq(`
 1 There is an inn, a merry old inn, beneath an old grey hill.
@@ -222,15 +153,11 @@ describe('TheTapestry', () => {
 		// Stanzas
 		describe('stanzas', async () => {
 			it('user should be able to get the lines in a stanza', async () => {
-				// for (let i = 0; i < 4; i++) {
-				// 	await tapestry.weave(TOLKIEN.split('\n')[i])
-				// }
-
 				await weaveTestLines(tapestry, accounts, 1)
 
 				const stanza1 = await tapestry.readStanza(1)
-				console.log('stanza 0', stanza1)
-				// expect(stanza).to.eq(TOLKIEN.split('\n').slice(0, 4).join('\n'))
+				// console.log('stanza 0', stanza1)
+
 				expect(stanza1).to.eq(`
 1 There is an inn, a merry old inn, beneath an old grey hill.
 2 And there they brew a beer so brown.
@@ -240,20 +167,15 @@ describe('TheTapestry', () => {
 		})
 		describe('lines', async () => {
 			it('user should be able to get the line by number', async () => {
-				// await tapestry.weave(TOLKIEN.split('\n')[0])
 				await weaveTestLines(tapestry, accounts, 1)
 
 				const line = await tapestry['readLine(uint256)'](1)
 				expect(line).to.eq(TOLKIEN.split('\n')[0])
-				// expect(line).to.eq(
-				// 	'1 There is an inn, a merry old inn, beneath an old grey hill.',
-				// )
 			})
 			it('user should be able to get the line by chapter and line number', async () => {
 				await weaveTestLines(tapestry, accounts, 1)
 
 				const line = await tapestry['readLine(uint256,uint256)'](0, 4)
-				// expect(line).to.eq(TOLKIEN.split('\n')[0])
 				expect(line).to.eq('4 One night to drink his fill.')
 			})
 			it('user should be able to get weaver by line number', async () => {
@@ -271,7 +193,7 @@ describe('TheTapestry', () => {
 
 				// 2. Weave again from accounts.0 (deployer)
 				await tapestry.weave(TOLKIEN.split('\n')[3])
-				// console.log(TOLKIEN.split('\n')[3])
+
 				// 3. Get lines for accounts.0
 				const lineToCheck = await tapestry['linesByWeaver'](deployer.address)
 				console.log(lineToCheck.map((bigNumber) => bigNumber.toNumber()))
