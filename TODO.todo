@@ -10,7 +10,7 @@ HOMEWORK:
   [x] Update Stanzas to start a 1
   [x] remove `linesPerAddress` & replace functionality with `weaverLines`
   [x] rename `addressLines` to `weaverLines`
-  [ ] Clean up logs
+  [x] Clean up logs
 
 
 // Chapter Contract
