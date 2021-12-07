@@ -15,8 +15,8 @@ import 'hardhat/console.sol';
 	4 stanza = 1 chapter = 16 lines
 
 	Indexes:
-	chapter - current 0-based index, TODO: change to 1-based index
-	stanza - current 0-based index, TODO: change to 1-based index
+	chapter - current 1-based index
+	stanza - current 1-based index
 	line - 1-based index
 
 	Terms:
@@ -27,17 +27,19 @@ import 'hardhat/console.sol';
 
 contract TheTapestry is ERC721 {
 	uint256 currentLine;
-	// key: line number => val: actual line (string)
+	// key: line number maps to val: actual line (string)
 	mapping(uint256 => string) public tapestryLines;
-
-	// mapping(address => uint256) linesPerAddress;
-
+	// key: weaver address maps to val: array of line numbers
 	mapping(address => uint256[]) public weaverLines;
+	// key: line number maps to val: weaver address
 	mapping(uint256 => address) public weaverByLine;
 
 	constructor() ERC721('TheTapestry', 'TAPESTRY') {}
 
 	function readChapter(uint chapterIndex) public view returns (string memory) {
+		require(chapterIndex > 0, 'Chapters start at 1');
+		require(currentLine / 16 + 1 >= chapterIndex, 'Chapters must have at least one line');
+
 		string memory chapter;
 
 		for (uint i; i < 16; i++){
@@ -71,7 +73,7 @@ contract TheTapestry is ERC721 {
 		return tapestryLines[lineIndex];
 	}
 	
-	function readLine(uint chapterIndex, uint lineIndex ) public view returns(string memory) {
+	function readLine(uint chapterIndex, uint lineIndex) public view returns(string memory) {
 		// do math
 		// +1 because lines start at 1
 		uint adjustedLineIndex = lineIndex + chapterIndex * 16;
@@ -100,7 +102,7 @@ contract TheTapestry is ERC721 {
 
 		// ensure author hasn't woven one of the last 16 lines
 		// IF the author has woven — check that their last line was at least 15 lines before
-		if(linesByWeaver(msg.sender).length > 0){
+		if (linesByWeaver(msg.sender).length > 0){
 			uint lineToWeave = currentLine + 1;
 			uint lastLineIndex = linesByWeaver(msg.sender).length -1;
 			uint lastLine = linesByWeaver(msg.sender)[lastLineIndex];

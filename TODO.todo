@@ -12,6 +12,12 @@ HOMEWORK:
   [x] rename `addressLines` to `weaverLines`
   [x] Clean up logs
 
+Questions:
+  [x] what happens if you ask for chapter 0?
+    it panics, arithmatic underflow/overflow
+  [x] what happens if we ask for incomplete chapters?
+    they return blank
+  
 
 // Chapter Contract
 // ================

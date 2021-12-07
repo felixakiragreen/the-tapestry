@@ -13,13 +13,36 @@ async function weaveTestLines(
 	tapestry: TheTapestry,
 	accounts: SignerWithAddress[],
 	numberOfChapters: number = 4,
+	numberOfLines: number = 16,
 ) {
 	// c is chapter index
 	for (let c = 1; c <= numberOfChapters; c++) {
 		// l is line index within chapter
-		for (let l = 0; l < 16; l++) {
+		for (let l = 0; l < numberOfLines; l++) {
 			// k is overall line index
-			// TODO: update chapter index to 1-based (currently 0-based)
+			const k = (c - 1) * 16 + l
+			const tapestryConnectedToOtherAccount = tapestry.connect(accounts[l])
+			await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[k])
+		}
+	}
+}
+
+async function weaveTestLines2({
+	tapestry,
+	accounts,
+	numberOfChapters = 4,
+	numberOfLines = 16,
+}: {
+	tapestry: TheTapestry
+	accounts: SignerWithAddress[]
+	numberOfChapters?: number
+	numberOfLines?: number
+}) {
+	// c is chapter index
+	for (let c = 1; c <= numberOfChapters; c++) {
+		// l is line index within chapter
+		for (let l = 0; l < numberOfLines; l++) {
+			// k is overall line index
 			const k = (c - 1) * 16 + l
 			const tapestryConnectedToOtherAccount = tapestry.connect(accounts[l])
 			await tapestryConnectedToOtherAccount.weave(TOLKIEN.split('\n')[k])
@@ -149,6 +172,50 @@ describe('TheTapestry', () => {
 15 And makes her wave her tufted tail.
 16 and dance upon the green.`)
 			})
+
+			it('handles incomplete & nonexistent chapters', async () => {
+				// await weaveTestLines(tapestry, accounts, 5, 1)
+
+				// await weaveTestLines2({
+				// 	tapestry,
+				// 	accounts,
+				// 	numberOfChapters: 1,
+				// 	numberOfLines: 5,
+				// })
+				await weaveTestLines2({
+					tapestry,
+					accounts,
+					numberOfChapters: 1,
+					numberOfLines: 5,
+				})
+
+				const chapter1 = await tapestry.readChapter(1)
+				expect(chapter1).to.eq(`
+1 There is an inn, a merry old inn, beneath an old grey hill.
+2 And there they brew a beer so brown.
+3 that the Man in the Moon himself came down.
+4 One night to drink his fill.
+5 The ostler has a tipsy cat that plays a five-stringed fiddle.
+
+
+
+
+
+
+
+
+
+
+`)
+			})
+
+				await expect(tapestry.readChapter(0)).to.be.revertedWith(
+					'Chapters start at 1',
+				)
+				await expect(tapestry.readChapter(7)).to.be.revertedWith(
+					'Chapters must have at least one line',
+				)
+			})
 		})
 		// Stanzas
 		describe('stanzas', async () => {
@@ -207,8 +274,8 @@ describe('TheTapestry', () => {
 				expect(JSON.stringify(lineToCheck.map((bn) => bn.toNumber()))).to.eq(
 					JSON.stringify([1, 17]),
 				)
-				console.log('read first stanza', await tapestry.readStanza(1))
-				console.log('read second stanza', await tapestry.readStanza(2))
+				// console.log('read first stanza', await tapestry.readStanza(1))
+				// console.log('read second stanza', await tapestry.readStanza(2))
 
 				// this doesn't work because arrays can't be equated
 				//expect(lineToCheck.map((bn) => bn.toNumber())).to.eq([1, 4])
