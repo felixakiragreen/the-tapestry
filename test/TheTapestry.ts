@@ -207,7 +207,6 @@ describe('TheTapestry', () => {
 
 
 `)
-			})
 
 				await expect(tapestry.readChapter(0)).to.be.revertedWith(
 					'Chapters start at 1',
