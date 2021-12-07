@@ -262,7 +262,9 @@ describe('TheTapestry', () => {
 
 				// 3. Get lines for accounts.0
 				const lineToCheck = await tapestry['linesByWeaver'](deployer.address)
-				console.log(lineToCheck.map((bigNumber) => bigNumber.toNumber()))
+				//
+				// console.log(lineToCheck.map((bigNumber) => bigNumber.toNumber()))
+
 				// [1, 4]
 				// 3. write expect for the line number
 				// how to do expects for arrays (or objects)
