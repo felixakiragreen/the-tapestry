@@ -19,29 +19,22 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface TheTapestryInterface extends ethers.utils.Interface {
+interface TheTapestryChapterInterface extends ethers.utils.Interface {
   functions: {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
-    "isChapterComplete(uint256)": FunctionFragment;
-    "linesByWeaver(address)": FunctionFragment;
     "name()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
-    "readChapter(uint256)": FunctionFragment;
-    "readLine(uint256,uint256)": FunctionFragment;
-    "readStanza(uint256)": FunctionFragment;
+    "printChapter(uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
-    "tapestryLines(uint256)": FunctionFragment;
+    "theTapestryAddress()": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
-    "weave(string)": FunctionFragment;
-    "weaverByLine(uint256)": FunctionFragment;
-    "weaverLines(address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -57,29 +50,13 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     functionFragment: "isApprovedForAll",
     values: [string, string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "isChapterComplete",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "linesByWeaver",
-    values: [string]
-  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "ownerOf",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "readChapter",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "readLine",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "readStanza",
+    functionFragment: "printChapter",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -96,8 +73,8 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "tapestryLines",
-    values: [BigNumberish]
+    functionFragment: "theTapestryAddress",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "tokenURI",
@@ -106,15 +83,6 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "transferFrom",
     values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "weave", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "weaverByLine",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "weaverLines",
-    values: [string, BigNumberish]
   ): string;
 
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
@@ -127,22 +95,12 @@ interface TheTapestryInterface extends ethers.utils.Interface {
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "isChapterComplete",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "linesByWeaver",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "readChapter",
+    functionFragment: "printChapter",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "readLine", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "readStanza", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom",
     data: BytesLike
@@ -157,21 +115,12 @@ interface TheTapestryInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "tapestryLines",
+    functionFragment: "theTapestryAddress",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "weave", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "weaverByLine",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "weaverLines",
     data: BytesLike
   ): Result;
 
@@ -206,7 +155,7 @@ export type TransferEvent = TypedEvent<
   [string, string, BigNumber] & { from: string; to: string; tokenId: BigNumber }
 >;
 
-export class TheTapestry extends BaseContract {
+export class TheTapestryChapter extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -247,7 +196,7 @@ export class TheTapestry extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: TheTapestryInterface;
+  interface: TheTapestryChapterInterface;
 
   functions: {
     approve(
@@ -269,16 +218,6 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    isChapterComplete(
-      chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-
-    linesByWeaver(
-      weaver: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber[]]>;
-
     name(overrides?: CallOverrides): Promise<[string]>;
 
     ownerOf(
@@ -286,26 +225,10 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    readChapter(
+    printChapter(
       chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    "readLine(uint256,uint256)"(
-      chapterIndex: BigNumberish,
-      lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    "readLine(uint256)"(
-      lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    readStanza(
-      stanzaIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: string,
@@ -335,10 +258,7 @@ export class TheTapestry extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
 
-    tapestryLines(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    theTapestryAddress(overrides?: CallOverrides): Promise<[string]>;
 
     tokenURI(
       tokenId: BigNumberish,
@@ -351,22 +271,6 @@ export class TheTapestry extends BaseContract {
       tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    weave(
-      _line: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    weaverByLine(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    weaverLines(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
   };
 
   approve(
@@ -388,40 +292,14 @@ export class TheTapestry extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  isChapterComplete(
-    chapterIndex: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
-
-  linesByWeaver(
-    weaver: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber[]>;
-
   name(overrides?: CallOverrides): Promise<string>;
 
   ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  readChapter(
+  printChapter(
     chapterIndex: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  "readLine(uint256,uint256)"(
-    chapterIndex: BigNumberish,
-    lineIndex: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  "readLine(uint256)"(
-    lineIndex: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  readStanza(
-    stanzaIndex: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   "safeTransferFrom(address,address,uint256)"(
     from: string,
@@ -451,7 +329,7 @@ export class TheTapestry extends BaseContract {
 
   symbol(overrides?: CallOverrides): Promise<string>;
 
-  tapestryLines(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+  theTapestryAddress(overrides?: CallOverrides): Promise<string>;
 
   tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
@@ -461,19 +339,6 @@ export class TheTapestry extends BaseContract {
     tokenId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  weave(
-    _line: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  weaverByLine(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
-
-  weaverLines(
-    arg0: string,
-    arg1: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
 
   callStatic: {
     approve(
@@ -495,40 +360,14 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    isChapterComplete(
-      chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-
-    linesByWeaver(
-      weaver: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
-
     name(overrides?: CallOverrides): Promise<string>;
 
     ownerOf(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    readChapter(
+    printChapter(
       chapterIndex: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<string>;
-
-    "readLine(uint256,uint256)"(
-      chapterIndex: BigNumberish,
-      lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    "readLine(uint256)"(
-      lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    readStanza(
-      stanzaIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    ): Promise<void>;
 
     "safeTransferFrom(address,address,uint256)"(
       from: string,
@@ -558,10 +397,7 @@ export class TheTapestry extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<string>;
 
-    tapestryLines(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    theTapestryAddress(overrides?: CallOverrides): Promise<string>;
 
     tokenURI(tokenId: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
@@ -571,19 +407,6 @@ export class TheTapestry extends BaseContract {
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    weave(_line: string, overrides?: CallOverrides): Promise<void>;
-
-    weaverByLine(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    weaverLines(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
   };
 
   filters: {
@@ -662,16 +485,6 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    isChapterComplete(
-      chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    linesByWeaver(
-      weaver: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     ownerOf(
@@ -679,25 +492,9 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    readChapter(
+    printChapter(
       chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "readLine(uint256,uint256)"(
-      chapterIndex: BigNumberish,
-      lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "readLine(uint256)"(
-      lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    readStanza(
-      stanzaIndex: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "safeTransferFrom(address,address,uint256)"(
@@ -728,10 +525,7 @@ export class TheTapestry extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
 
-    tapestryLines(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    theTapestryAddress(overrides?: CallOverrides): Promise<BigNumber>;
 
     tokenURI(
       tokenId: BigNumberish,
@@ -743,22 +537,6 @@ export class TheTapestry extends BaseContract {
       to: string,
       tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    weave(
-      _line: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    weaverByLine(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    weaverLines(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
 
@@ -785,16 +563,6 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    isChapterComplete(
-      chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    linesByWeaver(
-      weaver: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     ownerOf(
@@ -802,25 +570,9 @@ export class TheTapestry extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    readChapter(
+    printChapter(
       chapterIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "readLine(uint256,uint256)"(
-      chapterIndex: BigNumberish,
-      lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "readLine(uint256)"(
-      lineIndex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    readStanza(
-      stanzaIndex: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "safeTransferFrom(address,address,uint256)"(
@@ -851,8 +603,7 @@ export class TheTapestry extends BaseContract {
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    tapestryLines(
-      arg0: BigNumberish,
+    theTapestryAddress(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -866,22 +617,6 @@ export class TheTapestry extends BaseContract {
       to: string,
       tokenId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    weave(
-      _line: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    weaverByLine(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    weaverLines(
-      arg0: string,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

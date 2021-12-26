@@ -40,6 +40,14 @@ declare module "hardhat/types/runtime" {
       name: "TheTapestry",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TheTapestry__factory>;
+    getContractFactory(
+      name: "ITheTapestry",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ITheTapestry__factory>;
+    getContractFactory(
+      name: "TheTapestryChapter",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TheTapestryChapter__factory>;
 
     getContractAt(
       name: "ERC721",
@@ -76,6 +84,16 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.TheTapestry>;
+    getContractAt(
+      name: "ITheTapestry",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ITheTapestry>;
+    getContractAt(
+      name: "TheTapestryChapter",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TheTapestryChapter>;
 
     // default types
     getContractFactory(
