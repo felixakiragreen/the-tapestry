@@ -84,6 +84,14 @@ contract TheTapestry is ERC721 {
 		return weaverLines[weaver];
 	}
 
+	function isChapterComplete(uint chapterIndex) public view 
+	returns (bool){
+
+		// if chapterIndex = 2, currentLines must be 32+
+		console.log(currentLine);
+		return (currentLine >= chapterIndex * 16);
+	}
+
 	// anyone should be able to add a line to the tapestry
 	function weave(string memory _line) public {
 		// require(_line.length > 0, "Line must be non-empty");
